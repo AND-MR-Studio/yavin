@@ -1,6 +1,5 @@
-package org.space.yavin.alex.boot.controller
+package org.space.yavin.alex.agent.interfaces
 
-import dev.ai4j.openai4j.chat.Content
 import org.springframework.http.ResponseEntity
 import org.springframework.http.server.ServerHttpRequest
 import org.springframework.web.bind.annotation.PostMapping

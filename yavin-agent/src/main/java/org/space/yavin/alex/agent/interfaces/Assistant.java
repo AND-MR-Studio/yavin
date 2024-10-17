@@ -1,4 +1,4 @@
-package org.space.yavin.alex.boot.controller;
+package org.space.yavin.alex.agent.interfaces;
 
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.spring.AiService;

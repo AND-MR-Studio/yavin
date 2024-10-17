@@ -11,7 +11,7 @@
 
     <modules>
         <module>yavin-dependencies</module>
-        <module>yavin-boot</module>
+        <module>yavin-agent</module>
         <module>yavin-service</module>
     </modules>
 

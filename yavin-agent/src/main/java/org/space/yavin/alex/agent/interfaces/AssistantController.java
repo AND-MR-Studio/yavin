@@ -1,4 +1,4 @@
-package org.space.yavin.alex.boot.controller;
+package org.space.yavin.alex.agent.interfaces;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

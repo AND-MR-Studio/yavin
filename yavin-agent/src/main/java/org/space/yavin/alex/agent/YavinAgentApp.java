@@ -1,4 +1,4 @@
-package org.space.yavin.alex.boot.controller;
+package org.space.yavin.alex.agent;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,11 +9,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 
 @SpringBootApplication
-public class YavinBootApp {
+public class YavinAgentApp {
 
     public static void main(String[] args) {
 
-        SpringApplication.run(YavinBootApp.class, args);
+        SpringApplication.run(YavinAgentApp.class, args);
 
     }
 }

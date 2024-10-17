@@ -1,4 +1,4 @@
-package org.space.yavin.alex.boot.controller;
+package org.space.yavin.alex.agent.interfaces;
 
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import org.springframework.web.bind.annotation.GetMapping;
