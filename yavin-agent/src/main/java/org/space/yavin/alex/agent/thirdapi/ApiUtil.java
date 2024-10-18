@@ -4,7 +4,8 @@ import cn.hutool.http.Method;
 import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.extern.log4j.Log4j;
 import org.space.yavin.alex.agent.infrastructure.utils.SnakeJsonUtil;
-import org.space.yavin.alex.agent.thirdapi.common.entity.ApiResponseSpec;
+import org.space.yavin.alex.agent.thirdapi.common.response.ApiResponseSpec;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -25,7 +26,9 @@ import java.util.function.Function;
 @Log4j
 @Component
 public class ApiUtil {
+    @Autowired
     private WebClient webClient;
+    @Autowired
     private ApplicationEventPublisher eventPublisher;
 
     public ApiResponseSpec get(String apiName, String url, Map<String, String> headers) {

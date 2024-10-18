@@ -1,11 +1,11 @@
-package org.space.yavin.alex.agent;
+package org.space.yavin.alex.agent.domain.agent;
 
 import cn.hutool.core.util.StrUtil;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.space.yavin.alex.agent.domain.base.BaseTool;
 import org.space.yavin.alex.agent.domain.base.model.Message;
-import org.space.yavin.alex.agent.domain.base.BaseChatModel;
+import org.space.yavin.alex.agent.domain.llm.BaseChatModel;
 import reactor.core.publisher.Flux;
 
 import java.util.ArrayList;
@@ -33,15 +33,13 @@ public abstract class Agent {
      * @param messages 消息列表。
      * @return 响应生成器。
      */
-    public Flux<List<Message>> run(List<Message> messages) {
+    public Flux<Message> run(List<Message> messages) {
         List<Message> newMsgs = new ArrayList<>(messages);
         // todo lang判断
 
         return _run(newMsgs).flatMap(rsp -> {
-            for (int i = 0; i < rsp.size(); i++) {
-                if (StrUtil.isBlank(rsp.get(i).getName()) && StrUtil.isNotBlank(getName())) {
-                    rsp.get(i).setName(getName());
-                }
+            if (StrUtil.isBlank(rsp.getName()) && StrUtil.isNotBlank(getName())) {
+                rsp.setName(getName());
             }
             return Flux.just(rsp);
         }).onErrorResume(e -> {
@@ -51,6 +49,6 @@ public abstract class Agent {
         });
     }
 
-    abstract Flux<List<Message>> _run(List<Message> messages);
+    abstract Flux<Message> _run(List<Message> messages);
 
 }

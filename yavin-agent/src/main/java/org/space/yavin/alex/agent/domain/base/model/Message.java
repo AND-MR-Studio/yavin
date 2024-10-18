@@ -15,4 +15,16 @@ public class Message {
     private String content;
     private String name;
     private FunctionCall functionCall;
+
+    public Message(String role, String content) {
+        this.role = role;
+        this.content = content;
+    }
+
+    Message(String role, String content, String name) {
+        this.role = role;
+        this.content = content;
+        this.name = name;
+    }
+
 }

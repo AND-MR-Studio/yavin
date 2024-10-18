@@ -1,0 +1,5 @@
+rpc:
+  api-config:
+    qwen-chat:
+      url: http://example.com/api
+      timeout: 5000

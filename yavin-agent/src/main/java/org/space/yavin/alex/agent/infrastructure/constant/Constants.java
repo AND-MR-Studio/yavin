@@ -1,4 +1,4 @@
-package org.space.yavin.alex.agent.common.constant;
+package org.space.yavin.alex.agent.infrastructure.constant;
 
 /**
  * @author yyHuangfu

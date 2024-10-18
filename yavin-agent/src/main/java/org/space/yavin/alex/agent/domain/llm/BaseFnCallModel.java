@@ -1,4 +1,4 @@
-package org.space.yavin.alex.agent.domain.base;
+package org.space.yavin.alex.agent.domain.llm;
 
 /**
  * @author yyHuangfu

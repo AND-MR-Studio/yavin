@@ -1,4 +1,4 @@
-package org.space.yavin.alex.agent.domain.base;
+package org.space.yavin.alex.agent.domain.llm;
 
 
 import cn.hutool.core.collection.CollectionUtil;
@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static org.space.yavin.alex.agent.common.constant.LlmConstants.DEFAULT_SYSTEM_MESSAGE;
-import static org.space.yavin.alex.agent.common.constant.LlmConstants.SYSTEM;
+import static org.space.yavin.alex.agent.infrastructure.constant.LlmConstants.DEFAULT_SYSTEM_MESSAGE;
+import static org.space.yavin.alex.agent.infrastructure.constant.LlmConstants.SYSTEM;
 
 /**
  * @author yyHuangfu
@@ -33,16 +33,16 @@ public abstract class BaseChatModel {
      * 返回:
      * 由 LLM 生成的消息列表响应。
      */
-    public Flux<List<Message>> streamChat(List<Message> messages,
+    public Flux<Message> streamChat(List<Message> messages,
                                           List<Map<String, String>> functions,
-                                          Map<String, String> cfg) {
+                                          Map<String, Object> cfg) {
         List<Message> cloneMessages = new ArrayList<>(messages);
         if (!SYSTEM.equals(cloneMessages.get(0).getRole())) {
             messages.add(0, new Message(SYSTEM, DEFAULT_SYSTEM_MESSAGE, null, null));
         }
         // 针对cfg参数做不同的逻辑处理
         boolean functionMode = isFunctionMode(functions);
-        Flux<List<Message>> output;
+        Flux<Message> output;
         if (functionMode) {
             output = _chatWithFunction();
         } else {
@@ -55,11 +55,11 @@ public abstract class BaseChatModel {
         return output;
     }
 
-    protected abstract Flux<List<Message>> _chatStream(List<Message> messages, Map<String, String> cfg);
+    protected abstract Flux<Message> _chatStream(List<Message> messages, Map<String, Object> cfg);
 
     protected abstract List<Message> _chatNoStream();
 
-    protected abstract Flux<List<Message>> _chatWithFunction();
+    protected abstract Flux<Message> _chatWithFunction();
 
 
     // ------------------ private -----------------------
