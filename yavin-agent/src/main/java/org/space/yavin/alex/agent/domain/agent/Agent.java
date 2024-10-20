@@ -9,7 +9,9 @@ import org.space.yavin.alex.agent.domain.llm.BaseChatModel;
 import reactor.core.publisher.Flux;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author yyHuangfu
@@ -35,9 +37,10 @@ public abstract class Agent {
      */
     public Flux<Message> run(List<Message> messages) {
         List<Message> newMsgs = new ArrayList<>(messages);
-        // todo lang判断
+        // todo lang判断, 增加addInfo参数
+        Map<String, Object> addInfo = new HashMap<>();
 
-        return _run(newMsgs).flatMap(rsp -> {
+        return _run(newMsgs, addInfo).flatMap(rsp -> {
             if (StrUtil.isBlank(rsp.getName()) && StrUtil.isNotBlank(getName())) {
                 rsp.setName(getName());
             }
@@ -49,6 +52,6 @@ public abstract class Agent {
         });
     }
 
-    abstract Flux<Message> _run(List<Message> messages);
+    protected abstract Flux<Message> _run(List<Message> messages, Map<String, Object> addInfo);
 
 }
