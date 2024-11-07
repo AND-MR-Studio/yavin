@@ -2,7 +2,7 @@ package org.space.yavin.alex.agent.infrastructure.exception.base;
 
 
 import cn.hutool.core.util.StrUtil;
-import org.space.yavin.alex.agent.infrastructure.utils.MessageUtils;
+import org.space.yavin.alex.agent.infrastructure.utils.MessageUtil;
 
 /**
  * 基础异常
@@ -59,7 +59,7 @@ public class BaseException extends RuntimeException {
     public String getMessage() {
         String message = null;
         if (!StrUtil.isEmpty(code)) {
-            message = MessageUtils.message(code, args);
+            message = MessageUtil.message(code, args);
         }
         if (message == null) {
             message = defaultMessage;

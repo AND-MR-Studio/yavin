@@ -1,4 +1,4 @@
-package org.space.yavin.alex.agent.domain.llm;
+package org.space.yavin.alex.agent.domain.base;
 
 
 import cn.hutool.core.collection.CollectionUtil;

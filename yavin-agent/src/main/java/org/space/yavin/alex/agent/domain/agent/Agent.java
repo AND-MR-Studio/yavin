@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.space.yavin.alex.agent.domain.base.BaseTool;
 import org.space.yavin.alex.agent.domain.base.model.Message;
-import org.space.yavin.alex.agent.domain.llm.BaseChatModel;
+import org.space.yavin.alex.agent.domain.base.BaseChatModel;
 import reactor.core.publisher.Flux;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import java.util.Map;
 @AllArgsConstructor
 public abstract class Agent {
 
-    private List<BaseTool> tools = new ArrayList<>();
+    protected List<BaseTool<?>> tools = new ArrayList<>();
     private BaseChatModel llm;
     private String systemMessage;
     private String name;
