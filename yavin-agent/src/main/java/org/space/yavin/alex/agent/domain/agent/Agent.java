@@ -22,7 +22,7 @@ import java.util.Map;
 @AllArgsConstructor
 public abstract class Agent {
 
-    protected List<BaseTool<?>> tools = new ArrayList<>();
+    protected List<BaseTool<?>> tools;
     private BaseChatModel llm;
     private String systemMessage;
     private String name;

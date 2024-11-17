@@ -15,7 +15,7 @@ import java.util.Map;
  * @create 2024/10/18
  */
 public class Assistant extends FnCallAgent {
-    public Assistant(List<BaseTool> tools, BaseChatModel llm, String systemMessage, String name, String description) {
+    public Assistant(List<BaseTool<?>> tools, BaseChatModel llm, String systemMessage, String name, String description) {
         super(tools, llm, systemMessage, name, description);
     }
 
