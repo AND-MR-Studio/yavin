@@ -3,15 +3,18 @@ package org.space.yavin.alex.agent.domain.agent;
 import cn.hutool.core.util.StrUtil;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.space.yavin.alex.agent.domain.base.BaseTool;
-import org.space.yavin.alex.agent.domain.base.model.Message;
 import org.space.yavin.alex.agent.domain.base.BaseChatModel;
+import org.space.yavin.alex.agent.domain.base.BaseTool;
+import org.space.yavin.alex.agent.domain.base.model.ContentItem;
+import org.space.yavin.alex.agent.domain.base.model.Message;
 import reactor.core.publisher.Flux;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static org.space.yavin.alex.agent.infrastructure.constant.LlmConstants.SYSTEM;
 
 /**
  * @author yyHuangfu
@@ -35,12 +38,14 @@ public abstract class Agent {
      * @param messages 消息列表。
      * @return 响应生成器。
      */
-    public Flux<Message> run(List<Message> messages) {
-        List<Message> newMsgs = new ArrayList<>(messages);
+    public Flux<Message<?>> run(List<Message<?>> messages) {
+        // todo 为什么这里需要深拷贝
+        List<Message<?>> newMsgs = new ArrayList<>(messages);
         // todo lang判断, 增加addInfo参数
-        Map<String, Object> addInfo = new HashMap<>();
+        Map<String, ?> addInfo = new HashMap<>();
 
         return _run(newMsgs, addInfo).flatMap(rsp -> {
+            // 确保响应的名称不为空
             if (StrUtil.isBlank(rsp.getName()) && StrUtil.isNotBlank(getName())) {
                 rsp.setName(getName());
             }
@@ -52,6 +57,23 @@ public abstract class Agent {
         });
     }
 
-    protected abstract Flux<Message> _run(List<Message> messages, Map<String, Object> addInfo);
+    protected abstract Flux<Message<?>> _run(List<Message<?>> messages, Map<String, Object> addInfo);
+
+    protected Flux<Message<?>> callLlm(List<Message<?>> messages) {
+        if (StrUtil.isNotBlank(this.systemMessage)) {
+            Message<?> firstMsg = messages.get(0);
+            if (!firstMsg.getRole().equals(SYSTEM)) {
+                messages.add(0, new Message<>(SYSTEM, this.systemMessage));
+            } else if (firstMsg.getContent() instanceof String) {
+                firstMsg.setContent(this.systemMessage + "\n\n" + messages.get(0).getContent());
+            } else {
+                assert firstMsg.getContent() instanceof List;
+                @SuppressWarnings("unchecked")
+                List<ContentItem> contentList = (List<ContentItem>) messages.get(0).getContent();
+
+                contentList.add(0, new ContentItem(this.systemMessage + "\n\n"));
+            }
+        }
+    }
 
 }

@@ -10,18 +10,18 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Message {
+public class Message<T> {
     private String role;
-    private String content;
+    private T content;
     private String name;
     private FunctionCall functionCall;
 
-    public Message(String role, String content) {
+    public Message(String role, T content) {
         this.role = role;
         this.content = content;
     }
 
-    Message(String role, String content, String name) {
+    Message(String role, T content, String name) {
         this.role = role;
         this.content = content;
         this.name = name;
