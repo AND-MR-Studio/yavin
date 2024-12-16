@@ -1,6 +1,7 @@
 package org.space.yavin.alex.agent.domain.tool;
 
 import cn.hutool.core.util.ReflectUtil;
+import org.space.yavin.alex.agent.domain.base.BaseSearch;
 import org.space.yavin.alex.agent.domain.base.BaseTool;
 import org.space.yavin.alex.agent.domain.base.RegistryService;
 import org.space.yavin.alex.agent.domain.base.annotation.RegisterTool;
@@ -18,14 +19,14 @@ import static org.space.yavin.alex.agent.infrastructure.Settings.*;
  */
 
 @RegisterTool(name = "retrieval")
-public class Retrieval extends BaseTool<List> {
+public class Retrieval extends BaseTool<List<?>> {
 
     private Integer maxRefToken;
     private Integer parserPageSize;
     private List<String> ragSearchers;
     private String ragKeygenStrategy;
     private DocParser docParser;
-    private BaseTool<?> search;
+    private BaseSearch search;
 
     private static String description = "从给定文件列表中检索出和问题相关的内容，支持文件类型包括："
             + String.join("/", PARSER_SUPPORTED_FILE_TYPES);
@@ -47,11 +48,11 @@ public class Retrieval extends BaseTool<List> {
         this.ragKeygenStrategy = (String) cfg.getOrDefault("rag_keygen_strategy", DEFAULT_RAG_KEYGEN_STRATEGY);
 
         this.docParser = new DocParser(cfg); // todo 这样其实不好，隐藏了用法。应该用啥传啥。
-        this.search = ReflectUtil.newInstance(RegistryService.getTool(this.ragSearchers.get(0)), cfg);
+        this.search = (BaseSearch) ReflectUtil.newInstance(RegistryService.getTool(this.ragSearchers.getFirst()), cfg);
     }
 
     @Override
-    public List call(Map<String, Object> params) {
+    public List<?> call(Map<String, Object> params) {
         List<String> files = (List<String>) params.get("files");
         List<Map<String, Object>> records = new ArrayList<>();
         for (String file : files) {
@@ -59,7 +60,7 @@ public class Retrieval extends BaseTool<List> {
             records.add(result);
         }
         if (!records.isEmpty()) {
-            return this.search.call(Map.of("records", records, "query", params.get("query")))
+            return this.search.call(Map.of("records", records, "query", params.get("query")));
         }
         return records;
     }

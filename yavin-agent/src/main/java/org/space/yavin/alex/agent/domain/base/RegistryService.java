@@ -22,14 +22,14 @@ import static cn.hutool.extra.spring.SpringUtil.getBeanFactory;
 @Log4j
 @Service
 public class RegistryService {
-    private static final Map<String, Class<BaseTool<Object>>> TOOL_REGISTRY = new HashMap<>();
+    private static final Map<String, Class<BaseTool<?>>> TOOL_REGISTRY = new HashMap<>();
     private static final Map<String, BaseChatModel> LLM_REGISTRY = new HashMap<>();
 
-    public static void registerTool(String name, Class<BaseTool<Object>> toolClz) {
+    public static void registerTool(String name, Class<BaseTool<?>> toolClz) {
         TOOL_REGISTRY.put(name, toolClz);
     }
 
-    public static Class<BaseTool<Object>> getTool(String name) {
+    public static Class<BaseTool<?>> getTool(String name) {
         return TOOL_REGISTRY.get(name);
     }
 
@@ -47,7 +47,7 @@ public class RegistryService {
         List<Class<?>> toolList = findClassesWithAnnotation("org.space.yavin.alex.agent.domain.tool", RegisterTool.class);
 
         for (Class<?> tool : toolList) {
-            registerTool(tool.getAnnotation(RegisterTool.class).name(), (Class<BaseTool<Object>>) tool);
+            registerTool(tool.getAnnotation(RegisterTool.class).name(), (Class<BaseTool<?>>) tool);
         }
 
         Collection<Object> llmList = getBeanFactory().getBeansWithAnnotation(RegisterLlm.class).values();

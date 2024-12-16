@@ -5,7 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.space.yavin.alex.agent.domain.base.BaseChatModel;
 import org.space.yavin.alex.agent.domain.base.BaseTool;
-import org.space.yavin.alex.agent.domain.base.model.ContentItem;
+import org.space.yavin.alex.agent.domain.base.entity.ContentItem;
+import org.space.yavin.alex.agent.domain.base.entity.TextContent;
 import org.space.yavin.alex.agent.domain.base.model.Message;
 import reactor.core.publisher.Flux;
 
@@ -62,18 +63,20 @@ public abstract class Agent {
     protected Flux<Message<?>> callLlm(List<Message<?>> messages) {
         if (StrUtil.isNotBlank(this.systemMessage)) {
             Message<?> firstMsg = messages.get(0);
+            // 如果第一个消息不是系统消息，则添加系统消息
             if (!firstMsg.getRole().equals(SYSTEM)) {
                 messages.add(0, new Message<>(SYSTEM, this.systemMessage));
+            // 如果第一个消息是字符串，则将系统消息添加到第一个消息的开头
             } else if (firstMsg.getContent() instanceof String) {
-                firstMsg.setContent(this.systemMessage + "\n\n" + messages.get(0).getContent());
-            } else {
-                assert firstMsg.getContent() instanceof List;
-                @SuppressWarnings("unchecked")
+                Message<String> stringMsg = (Message<String>) firstMsg;
+                stringMsg.setContent(this.systemMessage + "\n\n" + messages.get(0).getContent());
+            // 如果第一个消息是列表
+            } else if (firstMsg.getContent() instanceof List){
                 List<ContentItem> contentList = (List<ContentItem>) messages.get(0).getContent();
-
-                contentList.add(0, new ContentItem(this.systemMessage + "\n\n"));
+                contentList.add(0, new TextContent(this.systemMessage + "\n\n"));
             }
         }
+        return this.llm.streamChat(messages, null, null)
     }
 
 }

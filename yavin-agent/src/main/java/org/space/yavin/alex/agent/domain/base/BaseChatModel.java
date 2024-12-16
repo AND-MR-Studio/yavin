@@ -33,7 +33,7 @@ public abstract class BaseChatModel {
      * 返回:
      * 由 LLM 生成的消息列表响应。
      */
-    public Flux<Message> streamChat(List<Message> messages,
+    public Flux<Message<?>> streamChat(List<Message<?>> messages,
                                           List<Map<String, String>> functions,
                                           Map<String, Object> cfg) {
         List<Message> cloneMessages = new ArrayList<>(messages);
