@@ -65,9 +65,7 @@ public class ApiUtil {
                             ((HttpClientRequest) request.getNativeRequest())
                                     .responseTimeout(Duration.ofMillis(timeout)))
                     .contentType(MediaType.APPLICATION_JSON)
-                    .headers(hs -> {
-                        headers.forEach(hs::add);
-                    })
+                    .headers(hs -> headers.forEach(hs::add))
                     .bodyValue(bodyMap)
                     .retrieve();
         } catch (URISyntaxException e) {

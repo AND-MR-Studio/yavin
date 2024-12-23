@@ -3,7 +3,7 @@ package org.space.yavin.alex.agent.domain.llm;
 import lombok.extern.slf4j.Slf4j;
 import org.space.yavin.alex.agent.domain.base.annotation.RegisterLlm;
 import org.space.yavin.alex.agent.domain.base.model.Choice;
-import org.space.yavin.alex.agent.domain.base.model.Message;
+import org.space.yavin.alex.agent.domain.base.entity.message.Message;
 import org.space.yavin.alex.agent.thirdapi.llm.QwenChatApi;
 import org.space.yavin.alex.agent.thirdapi.llm.response.LlmResponse;
 import org.springframework.beans.factory.annotation.Autowired;

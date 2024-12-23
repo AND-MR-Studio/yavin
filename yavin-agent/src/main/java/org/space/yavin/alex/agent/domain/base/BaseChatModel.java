@@ -3,7 +3,7 @@ package org.space.yavin.alex.agent.domain.base;
 
 import cn.hutool.core.collection.CollectionUtil;
 import lombok.Getter;
-import org.space.yavin.alex.agent.domain.base.model.Message;
+import org.space.yavin.alex.agent.domain.base.entity.message.Message;
 import reactor.core.publisher.Flux;
 
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public abstract class BaseChatModel {
      * 返回:
      * 由 LLM 生成的消息列表响应。
      */
-    public Flux<Message<?>> streamChat(List<Message<?>> messages,
+    public Flux<Message> streamChat(List<Message> messages,
                                           List<Map<String, String>> functions,
                                           Map<String, Object> cfg) {
         List<Message> cloneMessages = new ArrayList<>(messages);

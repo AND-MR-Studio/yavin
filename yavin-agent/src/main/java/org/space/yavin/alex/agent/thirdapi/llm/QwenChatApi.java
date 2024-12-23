@@ -3,7 +3,7 @@ package org.space.yavin.alex.agent.thirdapi.llm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.space.yavin.alex.agent.config.model.ApiConfig;
-import org.space.yavin.alex.agent.domain.base.model.Message;
+import org.space.yavin.alex.agent.domain.base.entity.message.Message;
 import org.space.yavin.alex.agent.infrastructure.exception.base.InputRequiredException;
 import org.space.yavin.alex.agent.thirdapi.ApiUtil;
 import org.space.yavin.alex.agent.thirdapi.llm.response.LlmResponse;

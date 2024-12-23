@@ -2,7 +2,7 @@ package org.space.yavin.alex.agent.domain.agent;
 
 import org.space.yavin.alex.agent.domain.base.BaseChatModel;
 import org.space.yavin.alex.agent.domain.base.BaseTool;
-import org.space.yavin.alex.agent.domain.base.model.Message;
+import org.space.yavin.alex.agent.domain.base.entity.message.Message;
 import reactor.core.publisher.Flux;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class FnCallAgent extends Agent {
     }
 
     @Override
-    protected Flux<Message> _run(List<Message> messages, Map<String, Object> addInfo) {
+    protected Flux<Message> process(List<Message> messages, Map<String, Object> addInfo) {
         List<Message> msg = new ArrayList<>(messages);
         int numLlmCallAvailable = MAX_LLM_CALL_PER_RUN;
         while (numLlmCallAvailable > 0) {

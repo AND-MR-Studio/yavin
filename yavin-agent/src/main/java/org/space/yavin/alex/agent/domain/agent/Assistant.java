@@ -3,7 +3,7 @@ package org.space.yavin.alex.agent.domain.agent;
 import cn.hutool.core.util.StrUtil;
 import org.space.yavin.alex.agent.domain.base.BaseChatModel;
 import org.space.yavin.alex.agent.domain.base.BaseTool;
-import org.space.yavin.alex.agent.domain.base.model.Message;
+import org.space.yavin.alex.agent.domain.base.entity.message.Message;
 import reactor.core.publisher.Flux;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public class Assistant extends FnCallAgent {
     }
 
     @Override
-    protected Flux<Message> _run(List<Message> messages, Map<String, Object> addInfo) { // todo 语言先不加了
+    protected Flux<Message> process(List<Message> messages, Map<String, Object> addInfo) { // todo 语言先不加了
         // Q&A with RAG and tool use abilities.
         return null;
     }

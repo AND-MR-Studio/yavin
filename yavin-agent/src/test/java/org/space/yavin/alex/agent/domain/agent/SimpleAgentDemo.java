@@ -4,7 +4,7 @@ import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.space.yavin.alex.agent.domain.base.BaseChatModel;
 import org.space.yavin.alex.agent.domain.base.RegistryService;
-import org.space.yavin.alex.agent.domain.base.model.Message;
+import org.space.yavin.alex.agent.domain.base.entity.message.Message;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
@@ -24,7 +24,7 @@ class SimpleAgentDemo {
                 "chat demo"
         );
         Message<String> msg = new Message<>("user", "你好");
-        agent.run(Lists.list(msg));
+        agent.process(Lists.list(msg));
     }
 
 }

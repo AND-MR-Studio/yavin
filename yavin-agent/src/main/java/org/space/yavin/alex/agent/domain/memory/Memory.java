@@ -2,7 +2,7 @@ package org.space.yavin.alex.agent.domain.memory;
 
 import org.space.yavin.alex.agent.domain.agent.Agent;
 import org.space.yavin.alex.agent.domain.base.BaseTool;
-import org.space.yavin.alex.agent.domain.base.model.Message;
+import org.space.yavin.alex.agent.domain.base.entity.message.Message;
 import org.space.yavin.alex.agent.domain.base.BaseChatModel;
 import org.space.yavin.alex.agent.domain.tool.Retrieval;
 import reactor.core.publisher.Flux;
@@ -60,7 +60,7 @@ public class Memory extends Agent {
     }
 
     @Override
-    protected Flux<Message> _run(List<Message> messages, Map<String, Object> addInfo) {
+    protected Flux<Message> process(List<Message> messages, Map<String, Object> addInfo) {
         return null;
     }
 }
