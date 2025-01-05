@@ -1,7 +1,8 @@
 package org.space.yavin.alex.agent.domain.base;
 
 import jakarta.annotation.PostConstruct;
-import lombok.extern.log4j.Log4j;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.space.yavin.alex.agent.domain.base.annotation.RegisterLlm;
 import org.space.yavin.alex.agent.domain.base.annotation.RegisterTool;
 import org.springframework.stereotype.Service;
@@ -19,9 +20,10 @@ import static cn.hutool.extra.spring.SpringUtil.getBeanFactory;
  * @create 2024/10/21
  */
 
-@Log4j
 @Service
 public class RegistryService {
+
+    private static final Logger logger = LogManager.getLogger(RegistryService.class);
     private static final Map<String, Class<BaseTool<?>>> TOOL_REGISTRY = new HashMap<>();
     private static final Map<String, BaseChatModel> LLM_REGISTRY = new HashMap<>();
 

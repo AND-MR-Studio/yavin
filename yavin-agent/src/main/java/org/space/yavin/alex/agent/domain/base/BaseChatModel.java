@@ -4,6 +4,7 @@ package org.space.yavin.alex.agent.domain.base;
 import cn.hutool.core.collection.CollectionUtil;
 import lombok.Getter;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
+import org.space.yavin.alex.agent.domain.base.entity.message.TextMessage;
 import reactor.core.publisher.Flux;
 
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public abstract class BaseChatModel {
                                           Map<String, Object> cfg) {
         List<Message> cloneMessages = new ArrayList<>(messages);
         if (!SYSTEM.equals(cloneMessages.get(0).getRole())) {
-            messages.add(0, new Message(SYSTEM, DEFAULT_SYSTEM_MESSAGE, null, null));
+            messages.add(0, new TextMessage(SYSTEM, DEFAULT_SYSTEM_MESSAGE));
         }
         // 针对cfg参数做不同的逻辑处理
         boolean functionMode = isFunctionMode(functions);

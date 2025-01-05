@@ -1,6 +1,5 @@
 package org.space.yavin.alex.agent.thirdapi.common.response;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

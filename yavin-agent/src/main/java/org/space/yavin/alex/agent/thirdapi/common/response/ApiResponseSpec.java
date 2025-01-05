@@ -3,7 +3,8 @@ package org.space.yavin.alex.agent.thirdapi.common.response;
 import cn.hutool.http.Method;
 import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.space.yavin.alex.agent.infrastructure.utils.SnakeJsonUtil;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -21,9 +22,11 @@ import java.util.function.Function;
  * @create 2024/10/17
  */
 
-@Log4j
 @AllArgsConstructor
 public class ApiResponseSpec {
+    private static final Logger logger = LogManager.getLogger(ApiResponseSpec.class);
+
+
     private String apiName;
     private String url;
     private Object body;

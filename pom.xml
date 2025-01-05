@@ -36,6 +36,10 @@
                 <artifactId>yavin-dependencies</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
+                <!--
+                    scope为import，表示把dependencies中的版本信息也传过来了。
+                    该scope只能在dependencyManagement中使用
+                 -->
                 <scope>import</scope>
             </dependency>
         </dependencies>

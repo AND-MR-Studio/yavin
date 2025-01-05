@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.space.yavin.alex.agent.domain.base.BaseChatModel;
 import org.space.yavin.alex.agent.domain.base.RegistryService;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
+import org.space.yavin.alex.agent.domain.base.entity.message.TextMessage;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
@@ -23,7 +24,7 @@ class SimpleAgentDemo {
                 "ai chat",
                 "chat demo"
         );
-        Message<String> msg = new Message<>("user", "你好");
+        Message msg = new TextMessage("user", "你好");
         agent.process(Lists.list(msg));
     }
 
