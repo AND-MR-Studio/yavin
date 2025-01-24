@@ -39,7 +39,7 @@ public class Message {
             return new TextMessage(ASSISTANT, (String) content);
         } else if (content instanceof List<?> &&
                 !((List<?>) content).isEmpty() &&
-                ((List<?>) content).getFirst() instanceof ContentItem) {
+                ((List<?>) content).get(0) instanceof ContentItem) {
 
             return new MultimodMessage(ASSISTANT, (List<ContentItem>) content);
         }

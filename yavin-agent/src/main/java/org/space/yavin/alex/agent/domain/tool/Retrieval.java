@@ -48,7 +48,7 @@ public class Retrieval extends BaseTool<List<?>> {
         this.ragKeygenStrategy = (String) cfg.getOrDefault("rag_keygen_strategy", DEFAULT_RAG_KEYGEN_STRATEGY);
 
         this.docParser = new DocParser(cfg); // todo 这样其实不好，隐藏了用法。应该用啥传啥。
-        this.search = (BaseSearch) ReflectUtil.newInstance(RegistryService.getTool(this.ragSearchers.getFirst()), cfg);
+        this.search = (BaseSearch) ReflectUtil.newInstance(RegistryService.getTool(this.ragSearchers.get(0)), cfg);
     }
 
     @Override

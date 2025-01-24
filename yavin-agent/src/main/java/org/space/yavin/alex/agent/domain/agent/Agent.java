@@ -77,7 +77,7 @@ public abstract class Agent {
                 // 如果第一个消息是列表
             } else if (firstMsg instanceof MultimodMessage) {
                 List<ContentItem> contentList = ((MultimodMessage) firstMsg).getContent();
-                contentList.addFirst(new ContentItem(ContentType.TEXT, this.systemMessage + "\n\n"));
+                contentList.add(0, new ContentItem(ContentType.TEXT, this.systemMessage + "\n\n"));
             }
         }
         return this.llm.streamChat(messages, null, null);
