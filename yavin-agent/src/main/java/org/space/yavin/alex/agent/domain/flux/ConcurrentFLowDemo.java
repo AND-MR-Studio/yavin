@@ -11,7 +11,7 @@ import java.util.concurrent.Flow;
  * @author yyHuangfu
  * @create 2025/1/22
  */
-public class SubscriberAndPublisherInFlow {
+public class ConcurrentFLowDemo {
 
     public static void main(String[] args) throws InterruptedException {
         MyPublisher<String> publisher = new MyPublisher<>();
