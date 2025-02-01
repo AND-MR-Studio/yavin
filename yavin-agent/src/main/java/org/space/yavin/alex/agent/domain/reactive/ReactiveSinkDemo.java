@@ -1,4 +1,4 @@
-package org.space.yavin.alex.agent.domain.flux;
+package org.space.yavin.alex.agent.domain.reactive;
 
 import reactor.core.publisher.Flux;
 
