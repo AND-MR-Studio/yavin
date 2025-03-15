@@ -10,7 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static org.space.yavin.alex.agent.infrastructure.constant.AgentConstants.KNOWLEDGE;
+
 /**
+ * Assistant = Tools + FunctionCall
  * @author yyHuangfu
  * @create 2024/10/18
  */
@@ -28,11 +31,13 @@ public class Assistant extends FnCallAgent {
     private List<Message> prependKnowledgePrompt(List<Message> messages, Map<String, Object> addInfo) {
         // assistant _prepend_knowledge_prompt
         List<Message> newMsgs = new ArrayList<>(messages);
-        String knowledge = (String) addInfo.get("knowledge");
-        if (StrUtil.isNotBlank(knowledge)) {
+        String knowledge = (String) addInfo.get(KNOWLEDGE);
+        if (StrUtil.isEmpty(knowledge)) {
 
         }
+        if(StrUtil.isNotBlank(knowledge)){
 
+        }
         return null;
     }
 }

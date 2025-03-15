@@ -6,7 +6,7 @@ import org.space.yavin.alex.agent.config.model.ApiConfig;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
 import org.space.yavin.alex.agent.infrastructure.exception.base.InputRequiredException;
 import org.space.yavin.alex.agent.thirdapi.ApiUtil;
-import org.space.yavin.alex.agent.thirdapi.llm.response.LlmResponse;
+import org.space.yavin.alex.agent.thirdapi.llm.response.GenerationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
@@ -73,7 +73,7 @@ public class QwenChatApi implements LlmApi {
      * @throws InvalidInput 如果 `history` 和 `auto_history` 互斥。
      */
     @Override
-    public Flux<LlmResponse> call(
+    public Flux<GenerationResponse> call(
             String model,
             Object prompt,
             List<Map<String, String>> history,

@@ -5,7 +5,7 @@ import org.space.yavin.alex.agent.domain.base.annotation.RegisterLlm;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
 import org.space.yavin.alex.agent.domain.base.model.Choice;
 import org.space.yavin.alex.agent.thirdapi.llm.QwenChatApi;
-import org.space.yavin.alex.agent.thirdapi.llm.response.LlmResponse;
+import org.space.yavin.alex.agent.thirdapi.llm.response.GenerationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import reactor.core.publisher.Flux;
 
@@ -15,6 +15,7 @@ import java.util.Map;
 import static org.space.yavin.alex.agent.domain.llm.QwenChatAtDs.QWEN_CHAT;
 
 /**
+ * qwen dashscope
  * @author yyHuangfu
  * @create 2024/10/17
  */
@@ -27,9 +28,9 @@ public class QwenChatAtDs extends BaseFnCallModel {
     private QwenChatApi qwenChatApi;
 
     @Override
-    protected Flux<Message> _chatStream(List<Message> messages, Map<String, Object> cfg) {
+    protected Flux<List<Message>> _chatStream(List<Message> messages, Map<String, Object> cfg) {
         // todo
-        Flux<LlmResponse> response = qwenChatApi.call(
+        Flux<GenerationResponse> response = qwenChatApi.call(
                 QWEN_CHAT,
                 null,
                 null,
@@ -41,7 +42,7 @@ public class QwenChatAtDs extends BaseFnCallModel {
         );
         return response.map(llmRsp -> {
             Choice firstChoice = llmRsp.getOutput().getChoices().get(0);
-            return Message.ofAssistant(firstChoice.getMessage().getContent());
+            return List.of(Message.ofAssistant(firstChoice.getMessage().getContent()));
         });
     }
 
@@ -51,7 +52,7 @@ public class QwenChatAtDs extends BaseFnCallModel {
     }
 
     @Override
-    protected Flux<Message> _chatWithFunction() {
+    protected Flux<List<Message>> _chatWithFunction() {
         return null;
     }
 }

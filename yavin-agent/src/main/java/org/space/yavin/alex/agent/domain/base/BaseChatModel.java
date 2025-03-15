@@ -34,16 +34,16 @@ public abstract class BaseChatModel {
      * 返回:
      * 由 LLM 生成的消息列表响应。
      */
-    public Flux<Message> streamChat(List<Message> messages,
-                                          List<Map<String, String>> functions,
-                                          Map<String, Object> cfg) {
+    public Flux<List<Message>> streamChat(List<Message> messages,
+                                    List<Map<String, String>> functions,
+                                    Map<String, Object> cfg) {
         List<Message> cloneMessages = new ArrayList<>(messages);
         if (!SYSTEM.equals(cloneMessages.get(0).getRole())) {
             messages.add(0, new TextMessage(SYSTEM, DEFAULT_SYSTEM_MESSAGE));
         }
         // 针对cfg参数做不同的逻辑处理
         boolean functionMode = isFunctionMode(functions);
-        Flux<Message> output;
+        Flux<List<Message>> output;
         if (functionMode) {
             output = _chatWithFunction();
         } else {
@@ -56,21 +56,15 @@ public abstract class BaseChatModel {
         return output;
     }
 
-    protected abstract Flux<Message> _chatStream(List<Message> messages, Map<String, Object> cfg);
+    protected abstract Flux<List<Message>> _chatStream(List<Message> messages, Map<String, Object> cfg);
 
     protected abstract List<Message> _chatNoStream();
 
-    protected abstract Flux<Message> _chatWithFunction();
+    protected abstract Flux<List<Message>> _chatWithFunction();
 
 
     // ------------------ private -----------------------
     private static boolean isFunctionMode(List<Map<String, String>> functions) {
-        boolean functionMode;
-        if (CollectionUtil.isEmpty(functions)) {
-            functionMode = false;
-        } else {
-            functionMode = true;
-        }
-        return functionMode;
+        return CollectionUtil.isNotEmpty(functions);
     }
 }

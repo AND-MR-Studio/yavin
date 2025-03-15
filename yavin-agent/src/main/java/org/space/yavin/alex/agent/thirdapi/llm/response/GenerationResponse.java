@@ -13,7 +13,7 @@ import org.space.yavin.alex.agent.thirdapi.common.response.ApiResponse;
 
 @Getter
 @Setter
-public class LlmResponse extends ApiResponse {
+public class GenerationResponse extends ApiResponse {
     private GenerationOutput output;
     private GenerationUsage usage;
 

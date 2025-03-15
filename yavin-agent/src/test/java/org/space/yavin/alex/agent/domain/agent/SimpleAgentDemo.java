@@ -25,6 +25,7 @@ class SimpleAgentDemo {
                 "chat demo"
         );
         Message msg = new TextMessage("user", "你好");
+        // Assistant process补全
         agent.process(Lists.list(msg));
     }
 

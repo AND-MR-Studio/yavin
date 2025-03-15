@@ -1,7 +1,7 @@
 package org.space.yavin.alex.agent.thirdapi.llm;
 
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
-import org.space.yavin.alex.agent.thirdapi.llm.response.LlmResponse;
+import org.space.yavin.alex.agent.thirdapi.llm.response.GenerationResponse;
 import reactor.core.publisher.Flux;
 
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public interface LlmApi {
 
-    Flux<LlmResponse> call(
+    Flux<GenerationResponse> call(
             String model,
             Object prompt,
             List<Map<String, String>> history,
