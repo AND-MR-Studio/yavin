@@ -25,7 +25,8 @@ class SimpleAgentDemo {
                 "chat demo"
         );
         Message msg = new TextMessage("user", "你好");
-        // Assistant process补全
+        // assistant agent
+        // todo 完成Memory类
         agent.process(Lists.list(msg));
     }
 

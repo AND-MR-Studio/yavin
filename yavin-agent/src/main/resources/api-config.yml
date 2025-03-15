@@ -1,5 +1,5 @@
 rpc:
   api-config:
-    qwen-chat:
-      url: http://example.com/api
+    qwen-chat: # 对应字段名 qwenChat（注意 kebab-case 会自动转 camelCase）
+      url: "https://api.qwen.com/chat"
       timeout: 5000
