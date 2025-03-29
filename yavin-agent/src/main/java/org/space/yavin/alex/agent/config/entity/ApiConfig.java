@@ -1,4 +1,4 @@
-package org.space.yavin.alex.agent.config.model;
+package org.space.yavin.alex.agent.config.entity;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -79,7 +79,13 @@ public abstract class Agent {
 
     protected abstract Flux<Message> process(List<Message> messages, Map<String, Object> addInfo);
 
-    // todo 后续把tools也加上
+    /**
+     * agent和LLM的交互接口
+     * todo 后续把tools也加上
+     * @param messages 消息列表。
+     * @param cfg      配置参数。
+     * @return LLM生成的内容回复
+     */
     protected Flux<List<Message>> callLlm(List<Message> messages, Map<String, Object> cfg) {
         return this.llm.streamChat(messages, null, cfg);
     }

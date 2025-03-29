@@ -28,7 +28,7 @@ public class FnCallAgent extends Agent {
         List<Message> msg = new ArrayList<>(messages);
         int numLlmCallAvailable = MAX_LLM_CALL_PER_RUN;
         while (numLlmCallAvailable > 0) {
-            Flux<Message> rsp = super.callLlm(messages);
+            Flux<List<Message>> rsp = super.callLlm(messages, addInfo);
             numLlmCallAvailable--;
         }
 

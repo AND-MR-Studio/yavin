@@ -1,5 +1,6 @@
 package org.space.yavin.alex.agent.domain.llm;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.space.yavin.alex.agent.domain.base.annotation.RegisterLlm;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
@@ -22,19 +23,18 @@ import static org.space.yavin.alex.agent.domain.llm.QwenChatAtDs.QWEN_CHAT;
 
 @Slf4j
 @RegisterLlm(name = QWEN_CHAT)
+@AllArgsConstructor
 public class QwenChatAtDs extends BaseFnCallModel {
     protected static final String QWEN_CHAT = "qwen-chat";
-    @Autowired
     private QwenChatApi qwenChatApi;
 
     @Override
-    protected Flux<List<Message>> _chatStream(List<Message> messages, Map<String, Object> cfg) {
+    protected Flux<List<Message>> chatStream(List<Message> messages, Map<String, Object> cfg) {
         // todo
         Flux<GenerationResponse> response = qwenChatApi.call(
                 QWEN_CHAT,
                 null,
                 null,
-                (String) cfg.get("apiKey"),
                 messages,
                 null,
                 null,
@@ -47,12 +47,12 @@ public class QwenChatAtDs extends BaseFnCallModel {
     }
 
     @Override
-    protected List<Message> _chatNoStream() {
+    protected List<Message> chatNoStream() {
         return List.of();
     }
 
     @Override
-    protected Flux<List<Message>> _chatWithFunction() {
+    protected Flux<List<Message>> chatWithFunction() {
         return null;
     }
 }

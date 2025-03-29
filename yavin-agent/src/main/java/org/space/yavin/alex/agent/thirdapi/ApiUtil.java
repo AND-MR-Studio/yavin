@@ -58,7 +58,7 @@ public class ApiUtil {
         Map<String, Object> bodyMap = SnakeJsonUtil.fromObj(body, new TypeReference<Map<String, Object>>() {
         });
 
-        Function<Long, WebClient.ResponseSpec> supplier = null;
+        Function<Long, WebClient.ResponseSpec> supplier;
         try {
             URI uri = new URI(url);
             supplier = timeout -> webClient.post()

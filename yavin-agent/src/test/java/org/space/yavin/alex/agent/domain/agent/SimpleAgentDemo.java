@@ -18,7 +18,7 @@ class SimpleAgentDemo {
     @Test
     public void chatTest() {
         BaseChatModel model = RegistryService.getLlm("qwen-chat");
-        Assistant agent = new Assistant(
+        BasicAgent agent = new BasicAgent(
                 null, model,
                 "你是一个对话机器人",
                 "ai chat",

@@ -50,12 +50,12 @@ public class ApiResponseSpec {
     }
 
     public <T> Flux<T> retrieveSSE(Long timeout) {
-        TypeReference<T> typeReference = new TypeReference<T>() {
+        TypeReference<T> typeReference = new TypeReference<>() {
         };
         return retrieveSSE(timeout, strRes -> {
             try {
                 return SnakeJsonUtil.fromJsonStr(strRes, typeReference);
-            } catch (IOException e) {
+            } catch (IOException | ClassCastException e) {
                 throw new RuntimeException(e);
             }
         });

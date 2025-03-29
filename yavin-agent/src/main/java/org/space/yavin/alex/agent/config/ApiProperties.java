@@ -3,10 +3,9 @@ package org.space.yavin.alex.agent.config;
 import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
-import org.space.yavin.alex.agent.config.model.ApiConfig;
+import org.space.yavin.alex.agent.config.entity.ApiConfig;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
-import org.springframework.validation.annotation.Validated;
 
 /**
  * 配置属性类，用于绑定 rpc.api-config 前缀的配置项
@@ -22,8 +21,25 @@ import org.springframework.validation.annotation.Validated;
 @ConfigurationProperties(prefix = "rpc.api-config")
 public class ApiProperties {
 
+    private ApiKeyConfig apiKey;
+
     /**
      * 通义千问API配置（配置项前缀：rpc.api-config.qwen-chat）
      */
     private ApiConfig qwenChat;
+    private ApiConfig kimiChat;
+
+    // 将内部类改为静态内部类: 非静态的内部类不能独立存在，需要通过外部类实例才能创建。
+    @Setter
+    public static class ApiKeyConfig {
+        private static final String BEARER = "Bearer ";
+
+        private String kimi;
+
+        @NotNull
+        public String getKimi() {
+            // 修改点3：空值处理防止拼接异常
+            return BEARER + kimi;
+        }
+    }
 }

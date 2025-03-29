@@ -1,6 +1,7 @@
 package org.space.yavin.alex.agent.domain.base;
 
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import lombok.Getter;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
@@ -38,16 +39,16 @@ public abstract class BaseChatModel {
                                     List<Map<String, String>> functions,
                                     Map<String, Object> cfg) {
         List<Message> cloneMessages = new ArrayList<>(messages);
-        if (!SYSTEM.equals(cloneMessages.get(0).getRole())) {
-            messages.add(0, new TextMessage(SYSTEM, DEFAULT_SYSTEM_MESSAGE));
+        if (!SYSTEM.equals(cloneMessages.getFirst().getRole())) {
+            messages.addFirst(new TextMessage(SYSTEM, DEFAULT_SYSTEM_MESSAGE));
         }
         // 针对cfg参数做不同的逻辑处理
         boolean functionMode = isFunctionMode(functions);
         Flux<List<Message>> output;
         if (functionMode) {
-            output = _chatWithFunction();
+            output = chatWithFunction();
         } else {
-            output = _chatStream(
+            output = chatStream(
                     messages,
                     cfg
             );
@@ -56,15 +57,15 @@ public abstract class BaseChatModel {
         return output;
     }
 
-    protected abstract Flux<List<Message>> _chatStream(List<Message> messages, Map<String, Object> cfg);
+    protected abstract Flux<List<Message>> chatStream(List<Message> messages, Map<String, Object> cfg);
 
-    protected abstract List<Message> _chatNoStream();
+    protected abstract List<Message> chatNoStream();
 
-    protected abstract Flux<List<Message>> _chatWithFunction();
+    protected abstract Flux<List<Message>> chatWithFunction();
 
 
     // ------------------ private -----------------------
     private static boolean isFunctionMode(List<Map<String, String>> functions) {
-        return CollectionUtil.isNotEmpty(functions);
+        return CollUtil.isNotEmpty(functions);
     }
 }

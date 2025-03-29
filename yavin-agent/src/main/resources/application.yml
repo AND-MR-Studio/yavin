@@ -7,14 +7,6 @@ spring:
     username: root
     password: 3c6cc3480c235348
 
-langchain4j:
-  open-ai:
-    streaming-chat-model:
-      api-key: 'demo'
-      model-name: gpt-4o
-      log-requests: true
-      log-responses: true
-
 
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
