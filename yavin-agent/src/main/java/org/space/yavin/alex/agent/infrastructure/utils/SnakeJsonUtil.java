@@ -2,9 +2,7 @@ package org.space.yavin.alex.agent.infrastructure.utils;
 
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.*;
 
 import java.io.IOException;
 
@@ -19,7 +17,8 @@ public class SnakeJsonUtil {
 
     static {
         // 配置 ObjectMapper 使用蛇形命名法
-        objectMapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+        objectMapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         // 配置输出格式化的 JSON（可选）
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
     }
@@ -57,10 +56,8 @@ public class SnakeJsonUtil {
     }
 
     /**
-     *
      * @param json
      * @param clazz
-     * @return
      * @param <T>
      * @throws IOException
      */

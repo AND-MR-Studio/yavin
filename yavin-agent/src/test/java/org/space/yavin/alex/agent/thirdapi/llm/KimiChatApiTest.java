@@ -3,8 +3,7 @@ package org.space.yavin.alex.agent.thirdapi.llm;
 import org.junit.jupiter.api.Test;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
 import org.space.yavin.alex.agent.domain.base.entity.message.TextMessage;
-import org.space.yavin.alex.agent.thirdapi.llm.response.GenerationResponse;
-import org.space.yavin.alex.agent.thirdapi.llm.response.KimiApiResponse;
+import org.space.yavin.alex.agent.thirdapi.llm.response.kimi.KimiApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
@@ -50,8 +49,7 @@ class KimiChatApiTest {
         // 执行测试
         Flux<KimiApiResponse> result = kimiChatApi.call(
                 MODEL, null, null, messages, null, null, null);
-        result.doOnNext(resp -> System.out.println(resp))
-                .blockLast();
+        result.doOnNext(resp -> System.out.println(resp.getChoices().getFirst().getMessage().getContent())).blockLast();
     }
 
     /**

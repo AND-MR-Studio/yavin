@@ -9,7 +9,7 @@ import org.space.yavin.alex.agent.config.entity.ApiConfig;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
 import org.space.yavin.alex.agent.infrastructure.exception.base.InputRequiredException;
 import org.space.yavin.alex.agent.thirdapi.ApiUtil;
-import org.space.yavin.alex.agent.thirdapi.llm.response.KimiApiResponse;
+import org.space.yavin.alex.agent.thirdapi.llm.response.kimi.KimiApiResponse;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 

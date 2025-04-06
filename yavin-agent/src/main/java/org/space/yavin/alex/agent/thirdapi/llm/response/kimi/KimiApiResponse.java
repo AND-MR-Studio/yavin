@@ -1,10 +1,9 @@
-package org.space.yavin.alex.agent.thirdapi.llm.response;
+package org.space.yavin.alex.agent.thirdapi.llm.response.kimi;
 
 import lombok.Getter;
 import org.space.yavin.alex.agent.thirdapi.common.response.LlmApiResponse;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author yyHuangfu
@@ -13,6 +12,6 @@ import java.util.Map;
 
 @Getter
 public class KimiApiResponse extends LlmApiResponse {
-    private List<Map<String, Object>> choices;
-    private Map<String, Object> usage;
+    private List<KimiChoice> choices;
+    private KimiUsage usage;
 }

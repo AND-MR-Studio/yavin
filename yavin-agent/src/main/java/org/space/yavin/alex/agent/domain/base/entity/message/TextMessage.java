@@ -1,7 +1,6 @@
 package org.space.yavin.alex.agent.domain.base.entity.message;
 
-import lombok.Data;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * @author yyHuangfu
@@ -9,10 +8,11 @@ import lombok.Setter;
  * @description 文本Message
  */
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class TextMessage extends Message {
 
-    @Setter
     private String content;
 
     public TextMessage(String role, String content) {
