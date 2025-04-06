@@ -56,5 +56,17 @@ public class SnakeJsonUtil {
         return objectMapper.readValue(json, clazz);
     }
 
+    /**
+     *
+     * @param json
+     * @param clazz
+     * @return
+     * @param <T>
+     * @throws IOException
+     */
+    public static <T> T fromJsonStr(String json, Class<T> clazz) throws IOException {
+        return objectMapper.readValue(json, clazz);
+    }
+
 
 }

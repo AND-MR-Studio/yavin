@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.space.yavin.alex.agent.thirdapi.common.entity.GenerationOutput;
 import org.space.yavin.alex.agent.thirdapi.common.entity.GenerationUsage;
-import org.space.yavin.alex.agent.thirdapi.common.response.ApiResponse;
+import org.space.yavin.alex.agent.thirdapi.common.response.LlmApiResponse;
 
 /**
  * @author yyHuangfu
@@ -13,7 +13,7 @@ import org.space.yavin.alex.agent.thirdapi.common.response.ApiResponse;
 
 @Getter
 @Setter
-public class GenerationResponse extends ApiResponse {
+public class GenerationResponse extends LlmApiResponse {
     private GenerationOutput output;
     private GenerationUsage usage;
 

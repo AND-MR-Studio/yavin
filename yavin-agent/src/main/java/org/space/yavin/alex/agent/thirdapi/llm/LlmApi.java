@@ -1,7 +1,8 @@
 package org.space.yavin.alex.agent.thirdapi.llm;
 
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
-import org.space.yavin.alex.agent.thirdapi.llm.response.GenerationResponse;
+import org.space.yavin.alex.agent.thirdapi.common.response.ApiResponse;
+import org.space.yavin.alex.agent.thirdapi.common.response.LlmApiResponse;
 import reactor.core.publisher.Flux;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public interface LlmApi {
      * @param messages  生成的消息。
      *                  示例：
      *                  <pre>{"role": "user", "content": "The weather is fine today."},
-     *                                                                                                       {"role": "assistant", "content": "Suitable for outings"}</pre>
+     *                                                                                                                        {"role": "assistant", "content": "Suitable for outings"}</pre>
      * @param plugins   插件配置。可以是插件配置字符串或字典。
      * @param workspace DashScope 工作区 ID。
      * @param addInfo   额外的参数，包括但不限于：
@@ -52,7 +53,7 @@ public interface LlmApi {
      *                          增加 `repetition_penalty` 可以减少生成的重复内容，1.0 表示无惩罚。
      *                  </ul>
      */
-    Flux<GenerationResponse> call(
+    Flux<? extends LlmApiResponse> call(
             String model,
             Object prompt,
             List<Message> history,

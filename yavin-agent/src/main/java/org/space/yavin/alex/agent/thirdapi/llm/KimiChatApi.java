@@ -9,7 +9,7 @@ import org.space.yavin.alex.agent.config.entity.ApiConfig;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
 import org.space.yavin.alex.agent.infrastructure.exception.base.InputRequiredException;
 import org.space.yavin.alex.agent.thirdapi.ApiUtil;
-import org.space.yavin.alex.agent.thirdapi.llm.response.GenerationResponse;
+import org.space.yavin.alex.agent.thirdapi.llm.response.KimiApiResponse;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 
@@ -33,9 +33,9 @@ public class KimiChatApi implements LlmApi {
     private final ApiUtil apiUtil;
 
     @Override
-    public Flux<GenerationResponse> call(String model, Object prompt, List<Message> history,
-                                         List<Message> messages, Object plugins, String workspace,
-                                         Map<String, Object> addInfo) {
+    public Flux<KimiApiResponse> call(String model, Object prompt, List<Message> history,
+                                      List<Message> messages, Object plugins, String workspace,
+                                      Map<String, Object> addInfo) {
         if (model == null || model.isEmpty()) {
             throw new InputRequiredException(KIMI_CHAT, "Model is required!");
         }
@@ -50,7 +50,7 @@ public class KimiChatApi implements LlmApi {
 
         KimiChatRequest req = KimiChatRequest.of(model, messages, history);
         return apiUtil.postJson(KIMI_CHAT, kimiChat.getUrl(), kimiReqHeader, req)
-                .retrieveSSE(kimiChat.getTimeout());
+                .retrieveSSE(kimiChat.getTimeout(), KimiApiResponse.class);
     }
 
     @Data

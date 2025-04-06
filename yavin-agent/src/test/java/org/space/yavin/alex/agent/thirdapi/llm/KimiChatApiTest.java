@@ -1,12 +1,10 @@
 package org.space.yavin.alex.agent.thirdapi.llm;
 
 import org.junit.jupiter.api.Test;
-import org.space.yavin.alex.agent.config.ApiProperties;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
 import org.space.yavin.alex.agent.domain.base.entity.message.TextMessage;
-import org.space.yavin.alex.agent.infrastructure.exception.base.InputRequiredException;
-import org.space.yavin.alex.agent.thirdapi.ApiUtil;
 import org.space.yavin.alex.agent.thirdapi.llm.response.GenerationResponse;
+import org.space.yavin.alex.agent.thirdapi.llm.response.KimiApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
@@ -14,10 +12,8 @@ import org.springframework.test.context.TestPropertySource;
 import reactor.core.publisher.Flux;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
@@ -52,7 +48,7 @@ class KimiChatApiTest {
         );
 
         // 执行测试
-        Flux<GenerationResponse> result = kimiChatApi.call(
+        Flux<KimiApiResponse> result = kimiChatApi.call(
                 MODEL, null, null, messages, null, null, null);
         result.doOnNext(resp -> System.out.println(resp))
                 .blockLast();
@@ -72,7 +68,7 @@ class KimiChatApiTest {
         messages.add(new TextMessage("user", "Current message"));
 
         // 执行测试 - 在实际环境中调用API
-        Flux<GenerationResponse> result = kimiChatApi.call(MODEL, null, history, messages, null, null, null);
+        Flux<KimiApiResponse> result = kimiChatApi.call(MODEL, null, history, messages, null, null, null);
 
         // 验证调用结果不为空
         assertNotNull(result);

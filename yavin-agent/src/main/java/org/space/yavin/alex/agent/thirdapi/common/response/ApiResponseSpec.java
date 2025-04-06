@@ -49,9 +49,7 @@ public class ApiResponseSpec {
                 .doOnError(error::set);
     }
 
-    public <T> Flux<T> retrieveSSE(Long timeout) {
-        TypeReference<T> typeReference = new TypeReference<>() {
-        };
+    private <T> Flux<T> retrieveSSE(Long timeout, TypeReference<T> typeReference) {
         return retrieveSSE(timeout, strRes -> {
             try {
                 return SnakeJsonUtil.fromJsonStr(strRes, typeReference);
@@ -59,5 +57,21 @@ public class ApiResponseSpec {
                 throw new RuntimeException(e);
             }
         });
+    }
+
+    public <T> Flux<T> retrieveSSE(Long timeout, Class<T> typeReference) {
+        return retrieveSSE(timeout, strRes -> {
+            try {
+                return SnakeJsonUtil.fromJsonStr(strRes, typeReference);
+            } catch (IOException | ClassCastException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+    public <T> Flux<T> retrieveSSE(Long timeout) {
+        TypeReference<T> typeReference = new TypeReference<>() {
+        };
+        return retrieveSSE(timeout, typeReference);
     }
 }

@@ -5,7 +5,8 @@ import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.space.yavin.alex.agent.config.entity.ApiConfig;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * 配置属性类，用于绑定 rpc.api-config 前缀的配置项
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Component;
 
 @Getter
 @Setter
-@Component
+@Configuration
 @ConfigurationProperties(prefix = "rpc.api-config")
 public class ApiProperties {
 

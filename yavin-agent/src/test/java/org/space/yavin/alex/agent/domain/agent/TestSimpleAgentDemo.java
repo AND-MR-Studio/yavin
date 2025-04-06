@@ -7,16 +7,17 @@ import org.space.yavin.alex.agent.domain.base.RegistryService;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
 import org.space.yavin.alex.agent.domain.base.entity.message.TextMessage;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
 
 /**
  * @author yyHuangfu
  * @create 2024/11/17
  */
 @SpringBootTest
-class SimpleAgentDemo {
+class TestSimpleAgentDemo {
 
     @Test
-    public void chatTest() {
+    void chatTest() {
         BaseChatModel model = RegistryService.getLlm("qwen-chat");
         BasicAgent agent = new BasicAgent(
                 null, model,
