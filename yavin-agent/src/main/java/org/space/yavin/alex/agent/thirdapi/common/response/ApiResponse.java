@@ -19,7 +19,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ApiResponse {
+public abstract class ApiResponse {
     private Integer statusCode;
     private String requestId;
     private String code;

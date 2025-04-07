@@ -47,9 +47,10 @@ class KimiChatApiTest {
         );
 
         // 执行测试
-        Flux<KimiApiResponse> result = kimiChatApi.call(
-                MODEL, null, null, messages, null, null, null);
-        result.doOnNext(resp -> System.out.println(resp.getChoices().getFirst().getMessage().getContent())).blockLast();
+        KimiApiResponse result = kimiChatApi.call(
+                MODEL, null, null, messages, null, null, null).blockFirst();
+        assert result != null;
+        System.out.println(result.getChoices().getFirst().getMessage().getContent());
     }
 
     /**

@@ -1,7 +1,7 @@
 package org.space.yavin.alex.agent.domain.memory;
 
 import org.space.yavin.alex.agent.domain.agent.Agent;
-import org.space.yavin.alex.agent.domain.base.BaseChatModel;
+import org.space.yavin.alex.agent.domain.llm.base.BaseChatModel;
 import org.space.yavin.alex.agent.domain.base.BaseTool;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
 import org.space.yavin.alex.agent.domain.tool.Retrieval;

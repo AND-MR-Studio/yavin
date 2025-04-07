@@ -2,12 +2,12 @@ package org.space.yavin.alex.agent.domain.llm;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.space.yavin.alex.agent.domain.llm.base.BaseFnCallModel;
 import org.space.yavin.alex.agent.domain.base.annotation.RegisterLlm;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
 import org.space.yavin.alex.agent.domain.base.model.Choice;
 import org.space.yavin.alex.agent.thirdapi.llm.QwenChatApi;
 import org.space.yavin.alex.agent.thirdapi.llm.response.GenerationResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import reactor.core.publisher.Flux;
 
 import java.util.List;

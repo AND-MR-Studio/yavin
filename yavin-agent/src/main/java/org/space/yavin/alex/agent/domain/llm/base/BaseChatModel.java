@@ -1,8 +1,7 @@
-package org.space.yavin.alex.agent.domain.base;
+package org.space.yavin.alex.agent.domain.llm.base;
 
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.collection.CollectionUtil;
 import lombok.Getter;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
 import org.space.yavin.alex.agent.domain.base.entity.message.TextMessage;

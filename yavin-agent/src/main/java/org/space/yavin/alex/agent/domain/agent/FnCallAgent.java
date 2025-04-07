@@ -1,6 +1,6 @@
 package org.space.yavin.alex.agent.domain.agent;
 
-import org.space.yavin.alex.agent.domain.base.BaseChatModel;
+import org.space.yavin.alex.agent.domain.llm.base.BaseChatModel;
 import org.space.yavin.alex.agent.domain.base.BaseTool;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
 import reactor.core.publisher.Flux;

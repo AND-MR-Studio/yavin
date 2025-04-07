@@ -37,7 +37,6 @@ public class ApiResponseSpec {
 
 
     private <T> Flux<T> retrieveSSE(Long timeout, Function<String, T> converter) {
-
         WebClient.ResponseSpec response = responseSupplier.apply(timeout);
         ArrayList<String> sseResponse = new ArrayList<>();
         AtomicReference<Throwable> error = new AtomicReference<>();

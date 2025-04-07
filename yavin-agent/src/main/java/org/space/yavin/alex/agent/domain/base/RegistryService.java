@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.space.yavin.alex.agent.domain.base.annotation.RegisterLlm;
 import org.space.yavin.alex.agent.domain.base.annotation.RegisterTool;
+import org.space.yavin.alex.agent.domain.llm.base.BaseChatModel;
 import org.springframework.stereotype.Service;
 
 import java.io.File;

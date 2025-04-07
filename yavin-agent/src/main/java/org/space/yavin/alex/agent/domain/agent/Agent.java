@@ -5,7 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.space.yavin.alex.agent.domain.base.BaseChatModel;
+import org.space.yavin.alex.agent.domain.llm.base.BaseChatModel;
 import org.space.yavin.alex.agent.domain.base.BaseTool;
 import org.space.yavin.alex.agent.domain.base.entity.content.ContentItem;
 import org.space.yavin.alex.agent.domain.base.entity.content.ContentType;

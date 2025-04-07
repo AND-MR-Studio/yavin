@@ -1,6 +1,4 @@
-package org.space.yavin.alex.agent.domain.llm;
-
-import org.space.yavin.alex.agent.domain.base.BaseChatModel;
+package org.space.yavin.alex.agent.domain.llm.base;
 
 /**
  * @author yyHuangfu
