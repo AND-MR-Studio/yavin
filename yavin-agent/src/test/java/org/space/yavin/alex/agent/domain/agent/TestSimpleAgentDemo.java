@@ -2,12 +2,11 @@ package org.space.yavin.alex.agent.domain.agent;
 
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
-import org.space.yavin.alex.agent.domain.base.BaseChatModel;
 import org.space.yavin.alex.agent.domain.base.RegistryService;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
 import org.space.yavin.alex.agent.domain.base.entity.message.TextMessage;
+import org.space.yavin.alex.agent.domain.llm.base.BaseChatModel;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
 
 /**
  * @author yyHuangfu
