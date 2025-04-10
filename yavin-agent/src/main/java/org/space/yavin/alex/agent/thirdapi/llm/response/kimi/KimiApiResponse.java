@@ -1,6 +1,7 @@
 package org.space.yavin.alex.agent.thirdapi.llm.response.kimi;
 
 import lombok.Getter;
+import org.space.yavin.alex.agent.domain.base.entity.message.TextMessage;
 import org.space.yavin.alex.agent.thirdapi.common.response.LlmApiResponse;
 
 import java.util.List;
@@ -14,4 +15,18 @@ import java.util.List;
 public class KimiApiResponse extends LlmApiResponse {
     private List<KimiChoice> choices;
     private KimiUsage usage;
+
+    @Getter
+    public static class KimiChoice {
+        private Integer index;
+        private TextMessage message;
+        private String finishReason;
+    }
+
+    @Getter
+    public static class KimiUsage {
+        private Integer promptTokens;
+        private Integer completionTokens;
+        private Integer totalTokens;
+    }
 }
