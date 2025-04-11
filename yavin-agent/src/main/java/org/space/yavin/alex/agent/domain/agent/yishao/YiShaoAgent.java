@@ -17,6 +17,7 @@ import java.util.Map;
  */
 public class YiShaoAgent extends Agent {
 
+
     private YiShaoAgent(List<BaseTool<?>> tools, BaseChatModel llm, String name, String description) {
         super(tools, llm, "", name, description);
     }
