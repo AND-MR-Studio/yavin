@@ -41,7 +41,7 @@ public class Retrieval extends BaseTool<List<?>> {
 
 
     public Retrieval(Map<String, Object> cfg) {
-        super(cfg);
+        super(null, null, null, cfg);
         this.maxRefToken = (Integer) cfg.getOrDefault("max_ref_token", DEFAULT_MAX_REF_TOKEN);
         this.parserPageSize = (Integer) cfg.getOrDefault("parser_page_size", DEFAULT_PARSER_PAGE_SIZE);
         this.ragSearchers = (List<String>) cfg.getOrDefault("rag_searchers", DEFAULT_RAG_SEARCHERS);

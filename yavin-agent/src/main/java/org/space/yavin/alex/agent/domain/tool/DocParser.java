@@ -16,12 +16,6 @@ public class DocParser extends BaseTool<Map> {
 
     public final static List<String> PARSER_SUPPORTED_FILE_TYPES = List.of("pdf", "doc", "docx", "ppt", "pptx", "txt", "md");
 
-    private static String description = "对一个文件进行内容提取和分块、返回分块后的文件内容";
-    private static List<Map<String, Object>> parameters = List.of(
-            Map.of("name", "url", "type", "string",
-                    "description", "待解析的文件的路径，可以是一个本地路径或可下载的http(s)链接", "required", true)
-    );
-
     private Integer maxRefToken;
     private Integer parserPageSize;
     private String dataRoot;
@@ -29,7 +23,13 @@ public class DocParser extends BaseTool<Map> {
     private SimpleDocParser docExtractor;
 
     public DocParser(Map<String, Object> cfg) {
-        super(cfg);
+        super("doc_parser",
+                "对一个文件进行内容提取和分块、返回分块后的文件内容",
+                List.of(Map.of("name", "url", "type", "string",
+                        "description", "待解析的文件的路径，可以是一个本地路径或可下载的http(s)链接",
+                        "required", true)
+                ),
+                cfg);
         this.maxRefToken = (Integer) cfg.get("max_ref_token");
         this.parserPageSize = (Integer) cfg.get("parser_page_size");
     }

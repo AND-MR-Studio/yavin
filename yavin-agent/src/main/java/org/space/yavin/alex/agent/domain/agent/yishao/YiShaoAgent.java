@@ -30,7 +30,7 @@ public class YiShaoAgent extends Agent {
 
     @Override
     protected Flux<Message> process(List<Message> messages, Map<String, Object> addInfo) {
-        return null;
+        return Flux.empty();
     }
 
 
