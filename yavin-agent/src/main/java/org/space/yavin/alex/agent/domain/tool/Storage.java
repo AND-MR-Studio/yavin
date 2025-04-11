@@ -13,7 +13,7 @@ import java.util.Map;
 public class Storage extends BaseTool<String> {
 
     public Storage(Map<String, Object> cfg) {
-        super(cfg);
+        super(null, null, null, cfg);
     }
 
     @Override

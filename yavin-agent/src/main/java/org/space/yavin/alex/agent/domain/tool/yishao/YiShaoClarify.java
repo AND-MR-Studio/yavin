@@ -15,7 +15,7 @@ public class YiShaoClarify extends BaseTool<String> {
     private final String CLARIFY_QUERY = "clarify_query";
 
     public YiShaoClarify(Map<String, Object> cfg) {
-        super(cfg);
+        super("yishao_clarify", "", null, cfg);
     }
 
     @Override

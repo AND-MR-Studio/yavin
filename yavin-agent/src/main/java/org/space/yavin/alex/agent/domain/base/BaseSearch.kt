@@ -4,16 +4,20 @@ package org.space.yavin.alex.agent.domain.base
  * @author yyHuangfu
  * @create 2024/11/18
  */
-class BaseSearch(cfg: Map<String, Any>, private var maxRefToken: Int) : BaseTool<List<Any>>(cfg) {
-    var description = "从给定文档中检索和问题相关的部分"
-    var parameters = listOf(
-        mapOf(
-            "name" to "query",
-            "type" to "string",
-            "description" to "问题，需要从文档中检索和这个问题有关的内容",
-            "required" to true
-        )
-    )
+class BaseSearch(cfg: Map<String, Any>, private var maxRefToken: Int) :
+    BaseTool<List<Any>>(
+        "base_search",
+        "给定文档中检索和问题相关的部分",
+        listOf(
+            mapOf(
+                "name" to "query",
+                "type" to "string",
+                "description" to "问题，需要从文档中检索和这个问题有关的内容",
+                "required" to true
+            )
+        ),
+        cfg
+    ) {
 
 
     /**

@@ -15,7 +15,7 @@ import java.util.Map;
 public class SimpleDocParser extends BaseTool<List<String>> {
 
     public SimpleDocParser(Map<String, Object> cfg) {
-        super(cfg);
+        super(null, null, null, cfg);
     }
 
     @Override
