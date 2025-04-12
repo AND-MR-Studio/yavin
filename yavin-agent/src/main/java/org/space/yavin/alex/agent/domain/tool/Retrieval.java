@@ -3,7 +3,7 @@ package org.space.yavin.alex.agent.domain.tool;
 import cn.hutool.core.util.ReflectUtil;
 import org.space.yavin.alex.agent.domain.base.BaseSearch;
 import org.space.yavin.alex.agent.domain.base.BaseTool;
-import org.space.yavin.alex.agent.domain.base.RegistryService;
+import org.space.yavin.alex.agent.application.RegistryService;
 import org.space.yavin.alex.agent.domain.base.annotation.RegisterTool;
 
 import java.util.ArrayList;

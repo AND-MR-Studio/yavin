@@ -5,10 +5,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.space.yavin.alex.agent.domain.base.annotation.RegisterLlm;
 import org.space.yavin.alex.agent.domain.llm.base.BaseChatModel;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
+import org.space.yavin.alex.agent.thirdapi.llm.KimiChatApi;
+import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
 import java.util.List;
 import java.util.Map;
+
+import static org.space.yavin.alex.agent.domain.llm.KimiChatModel.KIMI_CHAT;
 
 /**
  * @author yyHuangfu
@@ -16,9 +20,14 @@ import java.util.Map;
  */
 
 @Slf4j
-@RegisterLlm(name = "kimi_chat")
+@RegisterLlm(name = KIMI_CHAT)
+@Service
 @AllArgsConstructor
 public class KimiChatModel extends BaseChatModel {
+    protected static final String KIMI_CHAT = "kimi_chat";
+    private KimiChatApi chatApi;
+    private String model;
+
     @Override
     protected Flux<List<Message>> chatStream(List<Message> messages, Map<String, Object> cfg) {
         return null;
@@ -26,7 +35,9 @@ public class KimiChatModel extends BaseChatModel {
 
     @Override
     protected List<Message> chatNoStream() {
-        return List.of();
+        chatApi.call(
+                model,
+        )
     }
 
     @Override

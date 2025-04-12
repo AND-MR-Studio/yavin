@@ -1,8 +1,9 @@
-package org.space.yavin.alex.agent.domain.base;
+package org.space.yavin.alex.agent.application;
 
 import jakarta.annotation.PostConstruct;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.space.yavin.alex.agent.domain.base.BaseTool;
 import org.space.yavin.alex.agent.domain.base.annotation.RegisterLlm;
 import org.space.yavin.alex.agent.domain.base.annotation.RegisterTool;
 import org.space.yavin.alex.agent.domain.llm.base.BaseChatModel;
@@ -47,12 +48,13 @@ public class RegistryService {
     @PostConstruct
     public void init() throws IOException, ClassNotFoundException {
 
+        // 注册所有的tools
         List<Class<?>> toolList = findClassesWithAnnotation("org.space.yavin.alex.agent.domain.tool", RegisterTool.class);
-
         for (Class<?> tool : toolList) {
             registerTool(tool.getAnnotation(RegisterTool.class).name(), (Class<BaseTool<?>>) tool);
         }
 
+        // 注册所有的llm
         Collection<Object> llmList = getBeanFactory().getBeansWithAnnotation(RegisterLlm.class).values();
         for (Object llm : llmList) {
             registerLlm(llm.getClass().getAnnotation(RegisterLlm.class).name(), (BaseChatModel) llm);
