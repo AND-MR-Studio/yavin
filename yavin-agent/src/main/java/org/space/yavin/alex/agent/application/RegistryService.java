@@ -7,6 +7,8 @@ import org.space.yavin.alex.agent.domain.base.BaseTool;
 import org.space.yavin.alex.agent.domain.base.annotation.RegisterLlm;
 import org.space.yavin.alex.agent.domain.base.annotation.RegisterTool;
 import org.space.yavin.alex.agent.domain.llm.base.BaseChatModel;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -15,8 +17,6 @@ import java.lang.annotation.Annotation;
 import java.net.URL;
 import java.util.*;
 
-import static cn.hutool.extra.spring.SpringUtil.getBeanFactory;
-
 /**
  * @author yyHuangfu
  * @create 2024/10/21
@@ -24,6 +24,9 @@ import static cn.hutool.extra.spring.SpringUtil.getBeanFactory;
 
 @Service
 public class RegistryService {
+
+    @Autowired
+    private ApplicationContext applicationContext;
 
     private static final Logger logger = LogManager.getLogger(RegistryService.class);
     private static final Map<String, Class<BaseTool<?>>> TOOL_REGISTRY = new HashMap<>();
@@ -54,7 +57,7 @@ public class RegistryService {
         }
 
         // 注册所有的llm
-        Collection<Object> llmList = getBeanFactory().getBeansWithAnnotation(RegisterLlm.class).values();
+        Collection<Object> llmList = applicationContext.getBeansWithAnnotation(RegisterLlm.class).values();
         for (Object llm : llmList) {
             registerLlm(llm.getClass().getAnnotation(RegisterLlm.class).name(), (BaseChatModel) llm);
         }

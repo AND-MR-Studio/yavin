@@ -1,5 +1,6 @@
 package org.space.yavin.alex.agent.domain.agent.yishao;
 
+import lombok.extern.slf4j.Slf4j;
 import org.space.yavin.alex.agent.application.RegistryService;
 import org.space.yavin.alex.agent.domain.agent.Agent;
 import org.space.yavin.alex.agent.domain.base.BaseTool;
@@ -24,6 +25,7 @@ import static org.space.yavin.alex.agent.infrastructure.constant.LlmConstants.SY
  * @Date: 2025/4/6 17:17
  * @Description: 一勺海龟汤小程序
  */
+@Slf4j
 public class YiShaoAgent extends Agent {
 
     private static final String YISHAO_NAME = "海龟汤游戏智能体";
@@ -42,8 +44,9 @@ public class YiShaoAgent extends Agent {
             String promptTemplate = FileUtil.readFileToString("yavin-agent/src/main/resources/files/yishao-prompt-template.txt");
             return new YiShaoAgent(tools, kimiModel, promptTemplate, YISHAO_NAME, YISHAO_DESCRIPTION);
         } catch (IOException e) {
-            throw new RuntimeException("创建海龟汤智能体失败", e);
+            log.error("创建海龟汤智能体失败", e);
         }
+        return null;
     }
 
     @Override

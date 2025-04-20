@@ -1,6 +1,8 @@
 package org.space.yavin.alex.agent.domain.base.entity.message;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.space.yavin.alex.agent.domain.base.entity.content.ContentItem;
 
@@ -12,10 +14,11 @@ import java.util.List;
  * @description 多模态Message
  */
 
-@Data
+@Setter
+@Getter
+@NoArgsConstructor
 public class MultimodMessage extends Message {
 
-    @Setter
     private List<ContentItem> content;
 
 

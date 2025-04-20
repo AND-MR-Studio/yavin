@@ -1,13 +1,12 @@
 package org.space.yavin.alex.agent.domain.llm;
 
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.space.yavin.alex.agent.domain.base.annotation.RegisterLlm;
+import org.space.yavin.alex.agent.domain.base.entity.message.TextMessage;
 import org.space.yavin.alex.agent.domain.llm.base.BaseChatModel;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
 import org.space.yavin.alex.agent.thirdapi.llm.KimiChatApi;
 import org.space.yavin.alex.agent.thirdapi.llm.response.kimi.KimiApiResponse;
-import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -30,9 +29,9 @@ public class KimiChatModel extends BaseChatModel {
     private KimiChatApi chatApi;
     private String model;
 
-    KimiChatModel(KimiChatApi chatApi, String model) {
+    KimiChatModel(KimiChatApi chatApi) {
         this.chatApi = chatApi;
-        this.model = model;
+        this.model = KIMI_CHAT;
     }
 
     @Override
@@ -42,9 +41,12 @@ public class KimiChatModel extends BaseChatModel {
 
     @Override
     protected Mono<List<Message>> chatNoStream(List<Message> messages, Map<String, Object> cfg) {
+        // 显式声明泛型类型
         return chatApi.call(model, null, null, messages, null)
                 .map(rsp -> rsp.getChoices().stream()
-                        .map(KimiApiResponse.KimiChoice::getMessage).collect(Collectors.toList()))
+                        .map(KimiApiResponse.KimiChoice::getMessage)
+                        .<Message>map(msg -> (Message) msg) // 显式声明泛型类型
+                        .collect(Collectors.toList()))
                 .flatMap(Flux::fromIterable)
                 .collectList();
     }

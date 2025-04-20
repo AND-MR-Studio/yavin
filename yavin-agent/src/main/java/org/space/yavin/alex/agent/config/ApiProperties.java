@@ -1,5 +1,6 @@
 package org.space.yavin.alex.agent.config;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
@@ -7,6 +8,7 @@ import org.space.yavin.alex.agent.config.entity.ApiConfig;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 /**
  * 配置属性类，用于绑定 rpc.api-config 前缀的配置项
@@ -16,9 +18,9 @@ import org.springframework.context.annotation.Configuration;
  * @create 2024/10/18
  */
 
-@Setter
 @Getter
-@Configuration
+@Setter
+@Component
 @ConfigurationProperties(prefix = "rpc.api-config")
 public class ApiProperties {
 
@@ -29,6 +31,7 @@ public class ApiProperties {
 
     // 将内部类改为静态内部类: 非静态的内部类不能独立存在，需要通过外部类实例才能创建。
     @Setter
+    @Getter
     public static class ApiKeyConfig {
         private static final String BEARER = "Bearer ";
 

@@ -1,6 +1,5 @@
 package org.space.yavin.alex.agent.interfaces;
 
-import org.space.yavin.alex.agent.application.RegistryService;
 import org.space.yavin.alex.agent.domain.agent.yishao.YiShaoAgent;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
 import org.springframework.http.ResponseEntity;
@@ -31,8 +30,8 @@ public class YiShaoAppController {
      * @return agent回复
      */
     @PostMapping("/chat")
-    public Flux<ResponseEntity<Message>> chat(@RequestBody List<Message> chatRequest) {
-        return agent.process(chatRequest).map(ResponseEntity::ok);
+    public Flux<Message> chat(@RequestBody List<Message> chatRequest) {
+        return agent.process(chatRequest);
     }
 
     /**

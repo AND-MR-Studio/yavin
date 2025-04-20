@@ -7,6 +7,17 @@ spring:
     username: root
     password: 3c6cc3480c235348
 
+rpc:
+  api-config:
+    api-key:
+      kimi: sk-0TsvAhmvcwF8W0oLc5TTq5kPrHx91zQum9S2nONTiLkSqlg3
+
+    qwen-chat:
+      url: "https://api.qwen.com/chat"
+      timeout: 5000
+    kimi-chat:
+      url: "https://api.moonshot.cn/v1/chat/completions"
+      timeout: 8000
 
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml

@@ -21,4 +21,8 @@ public class ToolMessage extends Message{
         this.functionCall = functionCall;
     }
 
+    public Object getMsgContent() {
+        return functionCall;
+    }
+
 }

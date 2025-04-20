@@ -36,9 +36,9 @@ public abstract class BaseChatModel {
      * 由 LLM 生成的消息列表响应。
      */
     public Flux<List<Message>> chat(List<Message> messages,
-                                    List<Map<String, String>> functions,
-                                    boolean stream,
-                                    Map<String, Object> cfg) {
+                                              List<Map<String, String>> functions,
+                                              boolean stream,
+                                              Map<String, Object> cfg) {
         List<Message> cloneMessages = new ArrayList<>(messages);
         if (!SYSTEM.equals(cloneMessages.getFirst().getRole())) {
             messages.addFirst(new TextMessage(SYSTEM, DEFAULT_SYSTEM_MESSAGE));
@@ -64,7 +64,7 @@ public abstract class BaseChatModel {
     protected abstract Mono<List<Message>> chatNoStream(List<Message> messages, Map<String, Object> cfg);
 
     protected abstract Flux<List<Message>> chatWithFunction(List<Message> messages, List<Map<String, String>> functions,
-                                                            boolean stream, Map<String, Object> cfg);
+                                                                      boolean stream, Map<String, Object> cfg);
 
 
     // ------------------ private -----------------------

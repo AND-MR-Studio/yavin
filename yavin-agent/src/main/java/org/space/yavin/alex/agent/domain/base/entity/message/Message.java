@@ -1,9 +1,9 @@
 package org.space.yavin.alex.agent.domain.base.entity.message;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import jakarta.annotation.Nullable;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.space.yavin.alex.agent.domain.base.entity.content.ContentItem;
@@ -17,7 +17,16 @@ import static org.space.yavin.alex.agent.infrastructure.constant.LlmConstants.AS
  * @create 2024/10/17
  */
 
-@Data
+//@JsonTypeInfo(
+//        use = JsonTypeInfo.Id.DEDUCTION,     // 启用字段推导模式
+//        defaultImpl = Message.class      // 推导失败时使用Text类
+//)
+//@JsonSubTypes({
+//        @JsonSubTypes.Type(TextMessage.class),
+//        @JsonSubTypes.Type(MultimodMessage.class)
+//})
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Message {
