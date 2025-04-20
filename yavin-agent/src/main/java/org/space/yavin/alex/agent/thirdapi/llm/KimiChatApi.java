@@ -34,8 +34,7 @@ public class KimiChatApi implements LlmApi {
 
     @Override
     public Flux<KimiApiResponse> call(String model, Object prompt, List<Message> history,
-                                      List<Message> messages, Object plugins, String workspace,
-                                      Map<String, Object> addInfo) {
+                                      List<Message> messages, Map<String, Object> addInfo) {
         if (model == null || model.isEmpty()) {
             throw new InputRequiredException(KIMI_CHAT, "Model is required!");
         }

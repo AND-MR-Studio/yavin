@@ -47,7 +47,6 @@ public class RegistryService {
 
     @PostConstruct
     public void init() throws IOException, ClassNotFoundException {
-
         // 注册所有的tools
         List<Class<?>> toolList = findClassesWithAnnotation("org.space.yavin.alex.agent.domain.tool", RegisterTool.class);
         for (Class<?> tool : toolList) {

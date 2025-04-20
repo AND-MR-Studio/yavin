@@ -9,6 +9,7 @@ import org.space.yavin.alex.agent.domain.base.model.Choice;
 import org.space.yavin.alex.agent.thirdapi.llm.QwenChatApi;
 import org.space.yavin.alex.agent.thirdapi.llm.response.GenerationResponse;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ import static org.space.yavin.alex.agent.domain.llm.QwenChatAtDs.QWEN_CHAT;
 
 /**
  * qwen dashscope
+ *
  * @author yyHuangfu
  * @create 2024/10/17
  */
@@ -36,8 +38,6 @@ public class QwenChatAtDs extends BaseFnCallModel {
                 null,
                 null,
                 messages,
-                null,
-                null,
                 cfg
         );
         return response.map(llmRsp -> {
@@ -47,12 +47,13 @@ public class QwenChatAtDs extends BaseFnCallModel {
     }
 
     @Override
-    protected List<Message> chatNoStream() {
-        return List.of();
+    protected Mono<List<Message>> chatNoStream(List<Message> messages, Map<String, Object> cfg) {
+        return Mono.empty();
     }
 
     @Override
-    protected Flux<List<Message>> chatWithFunction() {
+    protected Flux<List<Message>> chatWithFunction(List<Message> messages, List<Map<String, String>> functions, boolean stream, Map<String, Object> cfg) {
         return null;
     }
+
 }

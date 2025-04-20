@@ -16,17 +16,14 @@ import org.springframework.context.annotation.Configuration;
  * @create 2024/10/18
  */
 
-@Getter
 @Setter
+@Getter
 @Configuration
 @ConfigurationProperties(prefix = "rpc.api-config")
 public class ApiProperties {
 
     private ApiKeyConfig apiKey;
 
-    /**
-     * 通义千问API配置（配置项前缀：rpc.api-config.qwen-chat）
-     */
     private ApiConfig qwenChat;
     private ApiConfig kimiChat;
 

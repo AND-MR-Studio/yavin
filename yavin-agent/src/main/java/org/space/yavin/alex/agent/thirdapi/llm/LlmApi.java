@@ -1,7 +1,7 @@
 package org.space.yavin.alex.agent.thirdapi.llm;
 
+import jakarta.annotation.Nullable;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
-import org.space.yavin.alex.agent.thirdapi.common.response.ApiResponse;
 import org.space.yavin.alex.agent.thirdapi.common.response.LlmApiResponse;
 import reactor.core.publisher.Flux;
 
@@ -24,9 +24,7 @@ public interface LlmApi {
      * @param messages  生成的消息。
      *                  示例：
      *                  <pre>{"role": "user", "content": "The weather is fine today."},
-     *                                                                                                                        {"role": "assistant", "content": "Suitable for outings"}</pre>
-     * @param plugins   插件配置。可以是插件配置字符串或字典。
-     * @param workspace DashScope 工作区 ID。
+     *                                                                                                                                                          {"role": "assistant", "content": "Suitable for outings"}</pre>
      * @param addInfo   额外的参数，包括但不限于：
      *                  <ul>
      *                      <li><code>stream</code> (boolean, 可选)：启用服务器发送事件（SSE）。
@@ -55,11 +53,9 @@ public interface LlmApi {
      */
     Flux<? extends LlmApiResponse> call(
             String model,
-            Object prompt,
+            @Nullable Object prompt,
             List<Message> history,
             List<Message> messages,
-            Object plugins,
-            String workspace,
             Map<String, Object> addInfo
     );
 

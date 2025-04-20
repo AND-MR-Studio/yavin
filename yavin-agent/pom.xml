@@ -27,11 +27,6 @@
             <artifactId>yavin-service</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <!-- 这个依赖包含了创建一个基于Spring MVC的Web应用所需要的所有组件。-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
 
         <!-- 注解处理器，它的主要作用是帮助开发者在编译时发现配置属性的类型错误和不兼容的配置。-->
         <dependency>

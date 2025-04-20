@@ -2,6 +2,7 @@ package org.space.yavin.alex.agent.thirdapi.llm;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.space.yavin.alex.agent.config.ApiProperties;
 import org.space.yavin.alex.agent.config.entity.ApiConfig;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
 import org.space.yavin.alex.agent.infrastructure.exception.base.InputRequiredException;
@@ -24,7 +25,7 @@ public class QwenChatApi implements LlmApi {
 
     private static final String QWEN_CHAT = "qwen-chat";
 
-    private final ApiConfig qwenChat;
+    private final ApiProperties apiProperties;
 
     private final ApiUtil apiUtil;
 
@@ -34,8 +35,6 @@ public class QwenChatApi implements LlmApi {
             Object prompt,
             List<Message> history,
             List<Message> messages,
-            Object plugins,
-            String workspace,
             Map<String, Object> addInfo
     ) {
         if ((prompt == null || prompt.toString().isEmpty()) && (messages == null || messages.isEmpty())) {
@@ -45,8 +44,8 @@ public class QwenChatApi implements LlmApi {
             throw new InputRequiredException(QWEN_CHAT, "Model is required!");
         }
         QwenChatRequest request = QwenChatRequest.of(model, prompt);
-        return apiUtil.postJson(QWEN_CHAT, qwenChat.getUrl(), null, request)
-                .retrieveSSE(qwenChat.getTimeout());
+        return apiUtil.postJson(QWEN_CHAT, apiProperties.getQwenChat().getUrl(), null, request)
+                .retrieveSSE(apiProperties.getQwenChat().getTimeout());
     }
 
     @Data

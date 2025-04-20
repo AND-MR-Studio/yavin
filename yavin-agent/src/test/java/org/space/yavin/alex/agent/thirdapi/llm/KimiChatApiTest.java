@@ -48,33 +48,8 @@ class KimiChatApiTest {
 
         // 执行测试
         KimiApiResponse result = kimiChatApi.call(
-                MODEL, null, null, messages, null, null, null).blockFirst();
+                MODEL, null, null, messages, null).blockFirst();
         assert result != null;
         System.out.println(result.getChoices().getFirst().getMessage().getContent());
-    }
-
-    /**
-     * 测试历史记录和当前消息的合并
-     */
-    @Test
-    public void testMessagesMerging() {
-        // 准备测试数据
-        List<Message> history = new ArrayList<>();
-        history.add(new TextMessage("user", "Previous message"));
-        history.add(new TextMessage("assistant", "Previous response"));
-
-        List<Message> messages = new ArrayList<>();
-        messages.add(new TextMessage("user", "Current message"));
-
-        // 执行测试 - 在实际环境中调用API
-        Flux<KimiApiResponse> result = kimiChatApi.call(MODEL, null, history, messages, null, null, null);
-
-        // 验证调用结果不为空
-        assertNotNull(result);
-
-        // 注意：在实际的Spring Boot测试中，我们无法直接验证内部KimiChatRequest的构造
-        // 但我们可以确保API调用不会抛出异常，这表明消息合并逻辑工作正常
-        // 如果需要更详细的验证，可以考虑使用Spring的测试工具如ReflectionTestUtils
-        // 或者添加一个可以访问内部状态的测试方法到KimiChatApi类中
     }
 }

@@ -6,6 +6,7 @@ import lombok.Getter;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
 import org.space.yavin.alex.agent.domain.base.entity.message.TextMessage;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +35,9 @@ public abstract class BaseChatModel {
      * 返回:
      * 由 LLM 生成的消息列表响应。
      */
-    public Flux<List<Message>> streamChat(List<Message> messages,
+    public Flux<List<Message>> chat(List<Message> messages,
                                     List<Map<String, String>> functions,
+                                    boolean stream,
                                     Map<String, Object> cfg) {
         List<Message> cloneMessages = new ArrayList<>(messages);
         if (!SYSTEM.equals(cloneMessages.getFirst().getRole())) {
@@ -45,12 +47,13 @@ public abstract class BaseChatModel {
         boolean functionMode = isFunctionMode(functions);
         Flux<List<Message>> output;
         if (functionMode) {
-            output = chatWithFunction();
+            output = chatWithFunction(messages, functions, stream, cfg);
         } else {
-            output = chatStream(
-                    messages,
-                    cfg
-            );
+            if (stream) {
+                output = chatStream(messages, cfg);
+            } else {
+                output = chatNoStream(messages, cfg).flux();
+            }
         }
         // output解析和校验
         return output;
@@ -58,9 +61,10 @@ public abstract class BaseChatModel {
 
     protected abstract Flux<List<Message>> chatStream(List<Message> messages, Map<String, Object> cfg);
 
-    protected abstract List<Message> chatNoStream();
+    protected abstract Mono<List<Message>> chatNoStream(List<Message> messages, Map<String, Object> cfg);
 
-    protected abstract Flux<List<Message>> chatWithFunction();
+    protected abstract Flux<List<Message>> chatWithFunction(List<Message> messages, List<Map<String, String>> functions,
+                                                            boolean stream, Map<String, Object> cfg);
 
 
     // ------------------ private -----------------------

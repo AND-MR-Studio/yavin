@@ -6,13 +6,17 @@ import org.space.yavin.alex.agent.domain.base.annotation.RegisterLlm;
 import org.space.yavin.alex.agent.domain.llm.base.BaseChatModel;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
 import org.space.yavin.alex.agent.thirdapi.llm.KimiChatApi;
+import org.space.yavin.alex.agent.thirdapi.llm.response.kimi.KimiApiResponse;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.space.yavin.alex.agent.domain.llm.KimiChatModel.KIMI_CHAT;
+
 
 /**
  * @author yyHuangfu
@@ -21,12 +25,15 @@ import static org.space.yavin.alex.agent.domain.llm.KimiChatModel.KIMI_CHAT;
 
 @Slf4j
 @RegisterLlm(name = KIMI_CHAT)
-@Service
-@AllArgsConstructor
 public class KimiChatModel extends BaseChatModel {
-    protected static final String KIMI_CHAT = "kimi_chat";
+    public static final String KIMI_CHAT = "kimi_chat";
     private KimiChatApi chatApi;
     private String model;
+
+    KimiChatModel(KimiChatApi chatApi, String model) {
+        this.chatApi = chatApi;
+        this.model = model;
+    }
 
     @Override
     protected Flux<List<Message>> chatStream(List<Message> messages, Map<String, Object> cfg) {
@@ -34,14 +41,17 @@ public class KimiChatModel extends BaseChatModel {
     }
 
     @Override
-    protected List<Message> chatNoStream() {
-        chatApi.call(
-                model,
-        )
+    protected Mono<List<Message>> chatNoStream(List<Message> messages, Map<String, Object> cfg) {
+        return chatApi.call(model, null, null, messages, null)
+                .map(rsp -> rsp.getChoices().stream()
+                        .map(KimiApiResponse.KimiChoice::getMessage).collect(Collectors.toList()))
+                .flatMap(Flux::fromIterable)
+                .collectList();
     }
 
+
     @Override
-    protected Flux<List<Message>> chatWithFunction() {
+    protected Flux<List<Message>> chatWithFunction(List<Message> messages, List<Map<String, String>> functions, boolean stream, Map<String, Object> cfg) {
         return null;
     }
 }

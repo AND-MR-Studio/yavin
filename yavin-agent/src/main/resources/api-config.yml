@@ -3,7 +3,7 @@ rpc:
     api-key:
       kimi: sk-0TsvAhmvcwF8W0oLc5TTq5kPrHx91zQum9S2nONTiLkSqlg3
 
-    qwen-chat: # 对应字段名 qwenChat（注意 kebab-case 会自动转 camelCase）
+    qwen-chat:
       url: "https://api.qwen.com/chat"
       timeout: 5000
     kimi-chat:

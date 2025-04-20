@@ -50,18 +50,18 @@ public abstract class Agent {
         // todo lang判断, 增加addInfo参数
         Map<String, Object> addInfo = new HashMap<>();
 
-        if (CharSequenceUtil.isNotBlank(this.systemMessage)) {
-            Message firstMsg = messages.get(0);
+        if (CharSequenceUtil.isNotBlank(getSystemMessage())) {
+            Message firstMsg = messages.getFirst();
             // 如果第一个消息不是系统消息，则添加系统消息
             if (!firstMsg.getRole().equals(SYSTEM)) {
-                messages.add(0, new TextMessage(SYSTEM, this.systemMessage));
+                messages.addFirst(new TextMessage(SYSTEM, getSystemMessage()));
                 // 如果第一个消息是字符串，则将系统消息添加到第一个消息的开头
             } else if (firstMsg instanceof TextMessage) {
-                ((TextMessage) firstMsg).setContent(this.systemMessage + "\n\n" + ((TextMessage) firstMsg).getContent());
+                ((TextMessage) firstMsg).setContent(getSystemMessage() + "\n\n" + ((TextMessage) firstMsg).getContent());
                 // 如果第一个消息是列表
             } else if (firstMsg instanceof MultimodMessage) {
                 List<ContentItem> contentList = ((MultimodMessage) firstMsg).getContent();
-                contentList.add(0, new ContentItem(ContentType.TEXT, this.systemMessage + "\n\n"));
+                contentList.addFirst(new ContentItem(ContentType.TEXT, getSystemMessage() + "\n\n"));
             }
         }
         return process(newMsgs, addInfo).flatMap(rsp -> {
@@ -82,12 +82,13 @@ public abstract class Agent {
     /**
      * agent和LLM的交互接口
      * todo 后续把tools也加上
+     *
      * @param messages 消息列表。
      * @param cfg      配置参数。
      * @return LLM生成的内容回复
      */
     protected Flux<List<Message>> callLlm(List<Message> messages, Map<String, Object> cfg) {
-        return this.llm.streamChat(messages, null, cfg);
+        return this.llm.chat(messages, null, true, cfg);
     }
 
 }
