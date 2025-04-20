@@ -2,6 +2,7 @@ package org.space.yavin.alex.agent.domain.agent.yishao;
 
 import org.junit.jupiter.api.Test;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
+import org.space.yavin.alex.agent.domain.base.entity.message.TextMessage;
 import org.space.yavin.alex.agent.domain.llm.KimiChatModel;
 
 import java.util.List;
@@ -17,6 +18,6 @@ class YiShaoAgentTest {
     @Test
     void process() {
         YiShaoAgent agent = YiShaoAgent.create();
-        agent.process(List.of(new Message("user", "你好"))).blockLast();
+        agent.process(List.of(new TextMessage("user", "你好"))).blockLast();
     }
 }

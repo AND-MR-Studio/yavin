@@ -2,11 +2,13 @@ package org.space.yavin.alex.agent.domain.base.entity.message;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver;
 import jakarta.annotation.Nullable;
 import lombok.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.space.yavin.alex.agent.domain.base.entity.content.ContentItem;
+import org.space.yavin.alex.agent.infrastructure.resolver.MessageTypeResolver;
 
 import java.util.List;
 
@@ -17,19 +19,13 @@ import static org.space.yavin.alex.agent.infrastructure.constant.LlmConstants.AS
  * @create 2024/10/17
  */
 
-//@JsonTypeInfo(
-//        use = JsonTypeInfo.Id.DEDUCTION,     // 启用字段推导模式
-//        defaultImpl = Message.class      // 推导失败时使用Text类
-//)
-//@JsonSubTypes({
-//        @JsonSubTypes.Type(TextMessage.class),
-//        @JsonSubTypes.Type(MultimodMessage.class)
-//})
+@JsonTypeInfo(use = JsonTypeInfo.Id.CUSTOM, property = "content", visible = true)
+@JsonTypeIdResolver(MessageTypeResolver.class)
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Message {
+public abstract class Message {
 
     private static final Logger logger = LogManager.getLogger(Message.class);
 
@@ -38,10 +34,7 @@ public class Message {
     private String name;
 
 
-    public Object getContent() {
-        logger.warn("get the Parent Message Class, return empty Str content");
-        return "";
-    }
+    public abstract Object getContent();
 
     public static Message ofAssistant(Object content) {
         if (content instanceof String) {

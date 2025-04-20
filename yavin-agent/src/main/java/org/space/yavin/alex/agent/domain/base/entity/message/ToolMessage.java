@@ -7,7 +7,7 @@ import org.space.yavin.alex.agent.domain.base.model.FunctionCall;
  * @Date: 2025/1/5 20:29
  * @Description: ToDo
  */
-public class ToolMessage extends Message{
+public class ToolMessage extends Message {
 
     private FunctionCall functionCall;
 
@@ -21,7 +21,8 @@ public class ToolMessage extends Message{
         this.functionCall = functionCall;
     }
 
-    public Object getMsgContent() {
+    @Override
+    public Object getContent() {
         return functionCall;
     }
 

@@ -59,10 +59,11 @@ public abstract class Agent {
             } else if (firstMsg instanceof TextMessage) {
                 ((TextMessage) firstMsg).setContent(getSystemMessage() + "\n\n" + ((TextMessage) firstMsg).getContent());
                 // 如果第一个消息是列表
-            } else if (firstMsg instanceof MultimodMessage) {
-                List<ContentItem> contentList = ((MultimodMessage) firstMsg).getContent();
-                contentList.addFirst(new ContentItem(ContentType.TEXT, getSystemMessage() + "\n\n"));
             }
+//            else if (firstMsg instanceof MultimodMessage) {
+//                List<ContentItem> contentList = ((MultimodMessage) firstMsg).getContent();
+//                contentList.addFirst(new ContentItem(ContentType.TEXT, getSystemMessage() + "\n\n"));
+//            }
         }
         return process(newMsgs, addInfo).flatMap(rsp -> {
             // 确保响应的名称不为空
