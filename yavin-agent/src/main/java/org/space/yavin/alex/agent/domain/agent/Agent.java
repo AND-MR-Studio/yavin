@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.space.yavin.alex.agent.domain.llm.base.BaseChatModel;
 import org.space.yavin.alex.agent.domain.base.BaseTool;
 import org.space.yavin.alex.agent.domain.base.entity.content.ContentItem;
-import org.space.yavin.alex.agent.domain.base.entity.content.ContentType;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
 import org.space.yavin.alex.agent.domain.base.entity.message.MultimodMessage;
 import org.space.yavin.alex.agent.domain.base.entity.message.TextMessage;
