@@ -2,13 +2,14 @@ package org.space.yavin.alex.agent.domain.base.entity.message;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver;
 import jakarta.annotation.Nullable;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.space.yavin.alex.agent.domain.base.entity.content.ContentItem;
-import org.space.yavin.alex.agent.infrastructure.resolver.MessageTypeResolver;
+import org.space.yavin.alex.agent.domain.base.enums.RoleEnum;
 
 import java.util.List;
 
@@ -18,23 +19,21 @@ import static org.space.yavin.alex.agent.infrastructure.constant.LlmConstants.AS
  * @author yyHuangfu
  * @create 2024/10/17
  */
-
-@JsonTypeInfo(use = JsonTypeInfo.Id.CUSTOM, property = "content", visible = true)
-@JsonTypeIdResolver(MessageTypeResolver.class)
+@Slf4j
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "role")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = TextMessage.class, name = "text"),
+        @JsonSubTypes.Type(value = MultimodMessage.class, name = "multimod")
+})
 @Getter
-@Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public abstract class Message {
+public abstract class Message<T> {
 
-    private static final Logger logger = LogManager.getLogger(Message.class);
-
-    private String role;
+    private final RoleEnum role;
     @Nullable
-    private String name;
+    private final String name;
 
-
-    public abstract Object getContent();
+    private final T content;
 
     public static Message ofAssistant(Object content) {
         if (content instanceof String) {

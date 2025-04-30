@@ -16,7 +16,6 @@ import java.util.List;
 
 @Setter
 @Getter
-@NoArgsConstructor
 public class MultimodMessage extends Message {
 
     private List<ContentItem> content;

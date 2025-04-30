@@ -32,8 +32,14 @@ public class KimiChatApi implements LlmApi {
     private final ApiProperties apiProperties;
     private final ApiUtil apiUtil;
 
+
+    /**
+     * message格式：
+     * { "role":"system", "content":"prompt提示词"}
+     *
+     */
     @Override
-    public Flux<KimiApiResponse> call(String model, Object prompt, List<Message> history,
+    public Flux<KimiApiResponse> call(String model, List<Message> history,
                                       List<Message> messages, Map<String, Object> addInfo) {
         if (model == null || model.isEmpty()) {
             throw new InputRequiredException(KIMI_CHAT, "Model is required!");
