@@ -3,8 +3,8 @@ package org.space.yavin.alex.agent.domain.agent;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.space.yavin.alex.agent.application.RegistryService;
+import org.space.yavin.alex.agent.domain.base.entity.content.Content;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
-import org.space.yavin.alex.agent.domain.base.entity.message.TextMessage;
 import org.space.yavin.alex.agent.domain.llm.base.BaseChatModel;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -24,7 +24,8 @@ class TestSimpleAgentDemo {
                 "ai chat",
                 "chat demo"
         );
-        Message msg = new TextMessage("user", "你好");
+
+        Message<Content> msg = Message.ofUser("你好");
         // assistant agent
         // todo 完成Memory类
         agent.process(Lists.list(msg));

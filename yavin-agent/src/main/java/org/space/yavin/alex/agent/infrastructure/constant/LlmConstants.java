@@ -9,9 +9,4 @@ public class LlmConstants {
     public static final String ROLE = "role";
     public static final String CONTENT = "content";
     public static final String NAME = "name";
-
-    public static final String SYSTEM = "system";
-    public static final String USER = "user";
-    public static final String ASSISTANT = "assistant";
-    public static final String FUNCTION = "function";
 }

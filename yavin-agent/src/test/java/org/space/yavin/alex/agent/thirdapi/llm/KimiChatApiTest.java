@@ -2,8 +2,8 @@ package org.space.yavin.alex.agent.thirdapi.llm;
 
 import org.junit.jupiter.api.Test;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
-import org.space.yavin.alex.agent.domain.base.entity.message.TextMessage;
-import org.space.yavin.alex.agent.thirdapi.llm.response.kimi.KimiApiResponse;
+import org.space.yavin.alex.agent.thirdapi.llm.kimi.KimiChatApi;
+import org.space.yavin.alex.agent.thirdapi.llm.kimi.KimiApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
@@ -37,14 +37,14 @@ class KimiChatApiTest {
     @Test
     void testCallSuccess() {
         // 准备测试数据
-        List<Message> messages = List.of(
-                new TextMessage("system", "你是一个专业的海龟汤游戏智能体，能够熟练且流畅地与用户进行海龟汤游戏互动。"),
-                new TextMessage("user", "你好，我叫李雷，1+1等于多少？")
+        List<Message<?>> messages = List.of(
+                Message.ofSystem("你是一个专业的海龟汤游戏智能体，能够熟练且流畅地与用户进行海龟汤游戏互动。"),
+                Message.ofUser("你好，我叫小龙女，1+1等于多少？")
         );
 
         // 执行测试
         KimiApiResponse result = kimiChatApi.call(
-                MODEL, null, null, messages, null).blockFirst();
+                MODEL, null, null, messages, null).blockLast();
         assert result != null;
         System.out.println(result.getChoices().getFirst().getMessage().getContent());
     }

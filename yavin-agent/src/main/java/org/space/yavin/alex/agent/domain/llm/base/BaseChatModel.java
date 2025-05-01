@@ -4,7 +4,7 @@ package org.space.yavin.alex.agent.domain.llm.base;
 import cn.hutool.core.collection.CollUtil;
 import lombok.Getter;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
-import org.space.yavin.alex.agent.domain.base.entity.message.TextMessage;
+import org.space.yavin.alex.agent.domain.base.enums.RoleEnum;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 
 import static org.space.yavin.alex.agent.infrastructure.constant.LlmConstants.DEFAULT_SYSTEM_MESSAGE;
-import static org.space.yavin.alex.agent.infrastructure.constant.LlmConstants.SYSTEM;
 
 /**
  * @author yyHuangfu
@@ -35,17 +34,17 @@ public abstract class BaseChatModel {
      * 返回:
      * 由 LLM 生成的消息列表响应。
      */
-    public Flux<List<Message>> chat(List<Message> messages,
-                                              List<Map<String, String>> functions,
-                                              boolean stream,
-                                              Map<String, Object> cfg) {
-        List<Message> cloneMessages = new ArrayList<>(messages);
-        if (!SYSTEM.equals(cloneMessages.getFirst().getRole())) {
-            messages.addFirst(new TextMessage(SYSTEM, DEFAULT_SYSTEM_MESSAGE));
+    public Flux<List<Message<?>>> chat(List<Message<?>> messages,
+                                       List<Map<String, String>> functions,
+                                       boolean stream,
+                                       Map<String, Object> cfg) {
+        List<Message<?>> cloneMessages = new ArrayList<>(messages);
+        if (!RoleEnum.SYSTEM.equals(cloneMessages.getFirst().getRole())) {
+            messages.addFirst(Message.ofSystem(DEFAULT_SYSTEM_MESSAGE));
         }
         // 针对cfg参数做不同的逻辑处理
         boolean functionMode = isFunctionMode(functions);
-        Flux<List<Message>> output;
+        Flux<List<Message<?>>> output;
         if (functionMode) {
             output = chatWithFunction(messages, functions, stream, cfg);
         } else {
@@ -59,12 +58,12 @@ public abstract class BaseChatModel {
         return output;
     }
 
-    protected abstract Flux<List<Message>> chatStream(List<Message> messages, Map<String, Object> cfg);
+    protected abstract Flux<List<Message<?>>> chatStream(List<Message<?>> messages, Map<String, Object> cfg);
 
-    protected abstract Mono<List<Message>> chatNoStream(List<Message> messages, Map<String, Object> cfg);
+    protected abstract Mono<List<Message<?>>> chatNoStream(List<Message<?>> messages, Map<String, Object> cfg);
 
-    protected abstract Flux<List<Message>> chatWithFunction(List<Message> messages, List<Map<String, String>> functions,
-                                                                      boolean stream, Map<String, Object> cfg);
+    protected abstract Flux<List<Message<?>>> chatWithFunction(List<Message<?>> messages, List<Map<String, String>> functions,
+                                                            boolean stream, Map<String, Object> cfg);
 
 
     // ------------------ private -----------------------

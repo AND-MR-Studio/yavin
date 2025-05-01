@@ -13,3 +13,13 @@
 1. 先完成纯文本链路的对话，简单的前端界面+高扩展、完成基本能力覆盖的后端：
    - **前端能力**：基本对话框，文件上传（聊天记录），token记录。工具和工作流编排模式？
    - **后端能力**：流式带function能力的agent对话。
+
+
+## 结构规范：（领域驱动设计）原则
+
+| 层级 | 职责 | 示例 |
+|------|------|------|
+| **用户接口层（Interface Layer）** | 接收外部请求（如 HTTP、RPC），调用应用层，返回响应 | `Controller`、`DTO` |
+| **应用层（Application Layer）** | 协调领域对象完成业务逻辑，不包含核心规则 | `ApplicationService` |
+| **领域层（Domain Layer）** | 核心业务逻辑、实体、值对象、聚合根 | `Entity`、`ValueObject`、`Aggregate` |
+| **基础设施层（Infrastructure Layer）** | 提供技术实现（如数据库、消息队列） | `Repository`、`EventPublisher` |

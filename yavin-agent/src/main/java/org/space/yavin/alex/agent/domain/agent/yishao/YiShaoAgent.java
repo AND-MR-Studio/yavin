@@ -1,14 +1,13 @@
 package org.space.yavin.alex.agent.domain.agent.yishao;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.space.yavin.alex.agent.application.RegistryService;
 import org.space.yavin.alex.agent.domain.agent.Agent;
 import org.space.yavin.alex.agent.domain.base.BaseTool;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
-import org.space.yavin.alex.agent.domain.base.entity.message.TextMessage;
 import org.space.yavin.alex.agent.domain.llm.base.BaseChatModel;
 import org.space.yavin.alex.agent.infrastructure.utils.FileUtil;
-import org.space.yavin.alex.agent.infrastructure.utils.VariablesReplaceUtil;
 import reactor.core.publisher.Flux;
 
 import java.io.IOException;
@@ -16,9 +15,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import static java.util.stream.Collectors.toMap;
 import static org.space.yavin.alex.agent.domain.llm.KimiChatModel.KIMI_CHAT;
-import static org.space.yavin.alex.agent.infrastructure.constant.LlmConstants.SYSTEM;
+import static org.space.yavin.alex.agent.infrastructure.utils.VariablesReplaceUtil.*;
 
 /**
  * @Author : Alex Huangfu
@@ -26,38 +24,40 @@ import static org.space.yavin.alex.agent.infrastructure.constant.LlmConstants.SY
  * @Description: 一勺海龟汤小程序
  */
 @Slf4j
+@Getter
 public class YiShaoAgent extends Agent {
 
-    private static final String YISHAO_NAME = "海龟汤游戏智能体";
-    private static final String YISHAO_DESCRIPTION = "一个专业的海龟汤游戏智能体，能够熟练且流畅地与用户进行海龟汤游戏互动。";
+    private final Map<String, String> placeHolders;
 
 
-    private YiShaoAgent(List<BaseTool<?>> tools, BaseChatModel llm, String promptTemplate, String name, String description) {
+    private YiShaoAgent(List<BaseTool<?>> tools, BaseChatModel llm, String promptTemplate, String name,
+                        String description, Map<String, String> placeHolders) {
         super(tools, llm, promptTemplate, name, description);
+        this.placeHolders = placeHolders;
     }
 
-    public static YiShaoAgent create() {
+    public static YiShaoAgent create(Map<String, String> placeHolders) {
         BaseChatModel kimiModel = RegistryService.getLlm(KIMI_CHAT);
         List<BaseTool<?>> tools = Collections.emptyList();
         try {
             // 修改文件路径为类路径资源路径，并确保文件位于src/main/resources/files目录下
             String promptTemplate = FileUtil.readFileToString("yavin-agent/src/main/resources/files/yishao-prompt-template.txt");
-            return new YiShaoAgent(tools, kimiModel, promptTemplate, YISHAO_NAME, YISHAO_DESCRIPTION);
+            return new YiShaoAgent(tools, kimiModel, promptTemplate, "海龟汤游戏智能体",
+                    "一个专业的海龟汤游戏智能体，能够熟练且流畅地与用户进行海龟汤游戏互动。", placeHolders);
         } catch (IOException e) {
             log.error("创建海龟汤智能体失败", e);
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
+
     @Override
-    protected Flux<Message> process(List<Message> messages, Map<String, Object> addInfo) {
-        Map<String, String> variables = addInfo.entrySet().stream()
-                .filter(entry -> entry.getValue() instanceof String)
-                .collect(toMap(Map.Entry::getKey, entry -> (String) entry.getValue(), (o, n) -> n));
-        String systemMessage = VariablesReplaceUtil.replaceVariables(super.getSystemMessage(), variables);
-        messages.addFirst(new TextMessage(SYSTEM, systemMessage));
+    protected Flux<Message<?>> process(List<Message<?>> messages, Map<String, Object> cfg) {
         return getLlm().chat(messages, List.of(), false, Collections.emptyMap()).map(List::getFirst);
     }
 
-
+    @Override
+    public String getSystemMessage() {
+        return replaceVariables(super.getSystemMessage(), getPlaceHolders());
+    }
 }

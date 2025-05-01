@@ -1,6 +1,5 @@
-package org.space.yavin.alex.agent.thirdapi.llm.response;
+package org.space.yavin.alex.agent.thirdapi.llm;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.space.yavin.alex.agent.domain.base.model.Choice;
@@ -14,7 +13,6 @@ import java.util.List;
  */
 
 @Getter
-@Setter
 public class GenerationResponse extends LlmApiResponse {
     private GenerationOutput output;
     private GenerationUsage usage;

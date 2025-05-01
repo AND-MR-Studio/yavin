@@ -2,10 +2,13 @@ package org.space.yavin.alex.agent.domain.base.entity.message;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import jakarta.annotation.Nullable;
+import io.micrometer.common.lang.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.space.yavin.alex.agent.domain.base.entity.content.Content;
+import org.space.yavin.alex.agent.domain.base.entity.content.TextContent;
 import org.space.yavin.alex.agent.domain.base.enums.RoleEnum;
 
 /**
@@ -24,9 +27,34 @@ import org.space.yavin.alex.agent.domain.base.enums.RoleEnum;
 public abstract class Message<T> {
 
     private final RoleEnum role;
-    @Nullable
-    private final String name;
 
-    private final T content;
+    @Nullable
+    @Setter
+    private String name;
+
+    @Setter
+    private T content;
+
+    Message(final RoleEnum role, T content) {
+        this.role = role;
+        this.name = null;
+        this.content = content;
+    }
+
+    public static UserMessage<Content> ofUser(String text) {
+        return new UserMessage<>(new TextContent(text));
+    }
+
+    public static SystemMessage<Content> ofSystem(String text) {
+        return new SystemMessage<>(new TextContent(text));
+    }
+
+    public static AssistantMessage<Content> ofAssistant(String text) {
+        return new AssistantMessage<>(new TextContent(text));
+    }
+
+    public static AssistantMessage<Content> ofAssistant(Content content) {
+        return new AssistantMessage<>(content);
+    }
 
 }

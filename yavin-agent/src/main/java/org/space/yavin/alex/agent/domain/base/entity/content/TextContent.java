@@ -2,6 +2,7 @@ package org.space.yavin.alex.agent.domain.base.entity.content;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.Getter;
+import lombok.Setter;
 import org.space.yavin.alex.agent.domain.base.enums.ContentType;
 
 /**
@@ -9,10 +10,11 @@ import org.space.yavin.alex.agent.domain.base.enums.ContentType;
  * @create 2025/4/30
  */
 
+@Setter
 @Getter
-public class TextContent extends MessageContent {
+public class TextContent extends Content {
 
-    private final String text;
+    private String text;
 
     @JsonCreator
     public TextContent(String text) {

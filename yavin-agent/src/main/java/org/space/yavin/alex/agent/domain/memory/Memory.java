@@ -60,7 +60,7 @@ public class Memory extends Agent {
     }
 
     @Override
-    protected Flux<Message> process(List<Message> messages, Map<String, Object> addInfo) {
+    protected Flux<Message<?>> process(List<Message<?>> messages, Map<String, Object> addInfo) {
         return null;
     }
 }

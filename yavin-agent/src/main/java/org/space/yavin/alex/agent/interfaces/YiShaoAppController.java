@@ -1,12 +1,17 @@
 package org.space.yavin.alex.agent.interfaces;
 
-import org.space.yavin.alex.agent.domain.agent.yishao.YiShaoAgent;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.space.yavin.alex.agent.application.YiShaoAgentApplication;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
+import org.space.yavin.alex.agent.interfaces.dto.DialogRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
-import java.util.List;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Author : Alex Huangfu
@@ -14,15 +19,13 @@ import java.util.List;
  * @Description: ToDo
  */
 
+@Slf4j
 @RestController
 @RequestMapping("/agent/yishao")
+@AllArgsConstructor
 public class YiShaoAppController {
 
-    private final YiShaoAgent agent;
-
-    private YiShaoAppController() {
-        this.agent = YiShaoAgent.create();
-    }
+    private final YiShaoAgentApplication yishaoApp;
 
     /**
      * 一勺海龟汤对话接口
@@ -30,8 +33,9 @@ public class YiShaoAppController {
      * @return agent回复
      */
     @PostMapping("/chat")
-    public Flux<Message> chat(@RequestBody List<Message> chatRequest) {
-        return agent.process(chatRequest);
+    public Flux<Message<?>> chat(@RequestBody DialogRequest dialogRequest) {
+        log.info("对话请求：{}", dialogRequest);
+        return yishaoApp.chat(dialogRequest);
     }
 
     /**

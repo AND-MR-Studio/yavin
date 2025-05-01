@@ -1,5 +1,6 @@
 package org.space.yavin.alex.agent.domain.base.enums;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -17,5 +18,6 @@ public enum RoleEnum {
     ASSISTANT("assistant"),
     FUNCTION("function");
 
+    @JsonValue
     private final String role;
 }

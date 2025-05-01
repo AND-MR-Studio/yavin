@@ -1,6 +1,7 @@
 package org.space.yavin.alex.agent.domain.agent;
 
 import cn.hutool.core.util.StrUtil;
+import org.space.yavin.alex.agent.application.context.DialogContext;
 import org.space.yavin.alex.agent.domain.llm.base.BaseChatModel;
 import org.space.yavin.alex.agent.domain.base.BaseTool;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
@@ -14,6 +15,7 @@ import static org.space.yavin.alex.agent.infrastructure.constant.AgentConstants.
 
 /**
  * Assistant = Tools + FunctionCall
+ *
  * @author yyHuangfu
  * @create 2024/10/18
  */
@@ -23,19 +25,19 @@ public class Assistant extends FnCallAgent {
     }
 
     @Override
-    protected Flux<Message> process(List<Message> messages, Map<String, Object> addInfo) { // todo 语言先不加了
+    protected Flux<Message<?>> process(List<Message<?>> messages, Map<String, Object> addInfo) { // todo 语言先不加了
         // Q&A with RAG and tool use abilities.
         return null;
     }
 
-    private List<Message> prependKnowledgePrompt(List<Message> messages, Map<String, Object> addInfo) {
+    private List<Message<?>> prependKnowledgePrompt(List<Message<?>> messages, Map<String, Object> addInfo) {
         // assistant _prepend_knowledge_prompt
-        List<Message> newMsgs = new ArrayList<>(messages);
+        List<Message<?>> newMsgs = new ArrayList<>(messages);
         String knowledge = (String) addInfo.get(KNOWLEDGE);
         if (StrUtil.isEmpty(knowledge)) {
 
         }
-        if(StrUtil.isNotBlank(knowledge)){
+        if (StrUtil.isNotBlank(knowledge)) {
 
         }
         return null;

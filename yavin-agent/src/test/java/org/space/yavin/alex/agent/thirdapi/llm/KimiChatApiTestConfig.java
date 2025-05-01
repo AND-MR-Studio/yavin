@@ -1,18 +1,12 @@
 package org.space.yavin.alex.agent.thirdapi.llm;
 
-import org.mockito.Mockito;
 import org.space.yavin.alex.agent.config.ApiProperties;
 import org.space.yavin.alex.agent.config.entity.ApiConfig;
-import org.space.yavin.alex.agent.thirdapi.ApiUtil;
-import org.space.yavin.alex.agent.thirdapi.common.response.ApiResponseSpec;
-import org.space.yavin.alex.agent.thirdapi.llm.response.GenerationResponse;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
-import reactor.core.publisher.Flux;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 
 /**
  * Kimi Chat API测试配置类

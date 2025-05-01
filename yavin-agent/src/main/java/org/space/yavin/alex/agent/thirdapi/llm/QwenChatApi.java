@@ -3,11 +3,9 @@ package org.space.yavin.alex.agent.thirdapi.llm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.space.yavin.alex.agent.config.ApiProperties;
-import org.space.yavin.alex.agent.config.entity.ApiConfig;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
 import org.space.yavin.alex.agent.infrastructure.exception.base.InputRequiredException;
 import org.space.yavin.alex.agent.thirdapi.ApiUtil;
-import org.space.yavin.alex.agent.thirdapi.llm.response.GenerationResponse;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 
@@ -33,8 +31,8 @@ public class QwenChatApi implements LlmApi {
     public Flux<GenerationResponse> call(
             String model,
             Object prompt,
-            List<Message> history,
-            List<Message> messages,
+            List<Message<?>> history,
+            List<Message<?>> messages,
             Map<String, Object> addInfo
     ) {
         if ((prompt == null || prompt.toString().isEmpty()) && (messages == null || messages.isEmpty())) {

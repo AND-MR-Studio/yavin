@@ -1,20 +1,21 @@
 package org.space.yavin.alex.agent.domain.agent;
 
 import lombok.extern.slf4j.Slf4j;
+import org.space.yavin.alex.agent.application.context.DialogContext;
 import org.space.yavin.alex.agent.domain.llm.base.BaseChatModel;
 import org.space.yavin.alex.agent.domain.base.BaseTool;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
 import reactor.core.publisher.Flux;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 /**
  * The most basic form of an agent is just a LLM,
  * not augmented with any tool or workflow.
- *
+ * <p>
  * 历史对话处理：
- *
  *
  * @Author : Alex Huangfu
  * @Date: 2025/3/15 15:32
@@ -28,7 +29,7 @@ public class BasicAgent extends Agent {
     }
 
     @Override
-    protected Flux<Message> process(List<Message> messages, Map<String, Object> addInfo) {
+    public Flux<Message<?>> process(List<Message<?>> messages, Map<String, Object> addInfo) {
         return callLlm(messages, addInfo).onErrorResume(e -> {
             log.error("Error processing message: {}", e.getMessage());
             return Flux.empty();
