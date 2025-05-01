@@ -9,6 +9,8 @@ import org.space.yavin.alex.agent.domain.base.entity.message.TextMessage;
  * @create 2025/5/1
  */
 public class ToStringMessage {
+    private ToStringMessage() {
+    }
 
     public static <F> Message<String> convert(Message<F> message) {
         F content = message.getContent();

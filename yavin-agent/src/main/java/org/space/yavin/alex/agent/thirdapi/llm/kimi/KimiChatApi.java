@@ -11,7 +11,6 @@ import org.space.yavin.alex.agent.infrastructure.convertor.ToStringMessage;
 import org.space.yavin.alex.agent.infrastructure.exception.base.InputRequiredException;
 import org.space.yavin.alex.agent.thirdapi.ApiUtil;
 import org.space.yavin.alex.agent.thirdapi.llm.LlmApi;
-import org.springframework.core.style.ToStringCreator;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 
@@ -19,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 

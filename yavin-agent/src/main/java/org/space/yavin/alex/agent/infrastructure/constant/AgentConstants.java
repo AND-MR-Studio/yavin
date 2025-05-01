@@ -6,9 +6,10 @@ package org.space.yavin.alex.agent.infrastructure.constant;
  * @Description: ToDo
  */
 public class AgentConstants {
+    private AgentConstants() {
+    }
 
     public static final String KNOWLEDGE = "knowledge";
-
 
 
 }

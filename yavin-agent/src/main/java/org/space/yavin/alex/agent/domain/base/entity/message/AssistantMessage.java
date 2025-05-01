@@ -1,7 +1,6 @@
 package org.space.yavin.alex.agent.domain.base.entity.message;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import org.space.yavin.alex.agent.domain.base.entity.content.Content;
 import org.space.yavin.alex.agent.domain.base.enums.RoleEnum;
 
 /**

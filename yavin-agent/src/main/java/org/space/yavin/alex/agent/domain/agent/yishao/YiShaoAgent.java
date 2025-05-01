@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.space.yavin.alex.agent.domain.llm.KimiChatModel.KIMI_CHAT;
-import static org.space.yavin.alex.agent.infrastructure.utils.VariablesReplaceUtil.*;
+import static org.space.yavin.alex.agent.infrastructure.utils.VariablesReplaceUtil.replaceVariables;
 
 /**
  * @Author : Alex Huangfu

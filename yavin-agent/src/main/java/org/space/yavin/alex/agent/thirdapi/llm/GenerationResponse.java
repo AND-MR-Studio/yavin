@@ -1,7 +1,6 @@
 package org.space.yavin.alex.agent.thirdapi.llm;
 
 import lombok.Getter;
-import lombok.Setter;
 import org.space.yavin.alex.agent.domain.base.model.Choice;
 import org.space.yavin.alex.agent.thirdapi.common.response.LlmApiResponse;
 

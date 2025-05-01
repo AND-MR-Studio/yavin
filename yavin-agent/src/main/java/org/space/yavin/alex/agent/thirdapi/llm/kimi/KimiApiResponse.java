@@ -1,14 +1,8 @@
 package org.space.yavin.alex.agent.thirdapi.llm.kimi;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
-import org.space.yavin.alex.agent.domain.base.entity.message.Message;
 import org.space.yavin.alex.agent.domain.base.entity.message.TextMessage;
 import org.space.yavin.alex.agent.thirdapi.common.response.LlmApiResponse;
-import org.w3c.dom.Text;
 
 import java.util.List;
 

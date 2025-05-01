@@ -2,16 +2,15 @@ package org.space.yavin.alex.agent.domain.llm;
 
 import lombok.extern.slf4j.Slf4j;
 import org.space.yavin.alex.agent.domain.base.annotation.RegisterLlm;
-import org.space.yavin.alex.agent.domain.llm.base.BaseChatModel;
 import org.space.yavin.alex.agent.domain.base.entity.message.Message;
-import org.space.yavin.alex.agent.thirdapi.llm.kimi.KimiChatApi;
+import org.space.yavin.alex.agent.domain.llm.base.BaseChatModel;
 import org.space.yavin.alex.agent.thirdapi.llm.kimi.KimiApiResponse;
+import org.space.yavin.alex.agent.thirdapi.llm.kimi.KimiChatApi;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static org.space.yavin.alex.agent.domain.llm.KimiChatModel.KIMI_CHAT;
 
@@ -44,8 +43,8 @@ public class KimiChatModel extends BaseChatModel {
         return chatApi.call(model, null, null, messages, null)
                 .map(rsp -> rsp.getChoices().stream()
                         .map(KimiApiResponse.KimiChoice::getMessage)
-                        .<Message<?>>map(msg -> (Message<?>) msg) // 显式声明泛型类型
-                        .collect(Collectors.toList()))
+                        .<Message<?>>map(msg -> msg) // 显式声明泛型类型
+                        .toList())
                 .flatMap(Flux::fromIterable)
                 .collectList();
     }
