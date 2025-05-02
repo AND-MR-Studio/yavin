@@ -40,8 +40,8 @@ public class YiShaoAgent extends Agent {
         BaseChatModel kimiModel = RegistryService.getLlm(KIMI_CHAT);
         List<BaseTool<?>> tools = Collections.emptyList();
         try {
-            // 修改文件路径为类路径资源路径，并确保文件位于src/main/resources/files目录下
-            String promptTemplate = FileUtil.readFileToString("yavin-agent/src/main/resources/files/yishao-prompt-template.txt");
+            // 使用类路径方式加载资源，确保在容器环境中也能正确加载
+            String promptTemplate = FileUtil.readFileToString("files/yishao-prompt-template.txt");
             return new YiShaoAgent(tools, kimiModel, promptTemplate, "海龟汤游戏智能体",
                     "一个专业的海龟汤游戏智能体，能够熟练且流畅地与用户进行海龟汤游戏互动。", placeHolders);
         } catch (IOException e) {

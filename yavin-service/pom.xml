@@ -8,6 +8,7 @@
         <artifactId>yavin</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+    <packaging>jar</packaging>
 
     <artifactId>yavin-service</artifactId>
 
