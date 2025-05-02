@@ -11,11 +11,13 @@ import org.space.yavin.alex.agent.infrastructure.utils.FileUtil;
 import reactor.core.publisher.Flux;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import static org.space.yavin.alex.agent.domain.llm.KimiChatModel.KIMI_CHAT;
+import static org.space.yavin.alex.agent.infrastructure.constant.Constants.PROMPT;
 import static org.space.yavin.alex.agent.infrastructure.utils.VariablesReplaceUtil.replaceVariables;
 
 /**
@@ -41,12 +43,12 @@ public class YiShaoAgent extends Agent {
         List<BaseTool<?>> tools = Collections.emptyList();
         try {
             // 使用类路径方式加载资源，确保在容器环境中也能正确加载
-            String promptTemplate = FileUtil.readFileToString("files/yishao-prompt-template.txt");
-            return new YiShaoAgent(tools, kimiModel, promptTemplate, "海龟汤游戏智能体",
+//            String promptTemplate = FileUtil.readFileToString("files/yishao-prompt-template.txt");
+            return new YiShaoAgent(tools, kimiModel, PROMPT, "海龟汤游戏智能体",
                     "一个专业的海龟汤游戏智能体，能够熟练且流畅地与用户进行海龟汤游戏互动。", placeHolders);
-        } catch (IOException e) {
+        } catch (Exception e) {
             log.error("创建海龟汤智能体失败", e);
-            throw new RuntimeException(e);
+            throw new RuntimeException(Arrays.toString(e.getStackTrace()));
         }
     }
 
@@ -58,6 +60,8 @@ public class YiShaoAgent extends Agent {
 
     @Override
     public String getSystemMessage() {
-        return replaceVariables(super.getSystemMessage(), getPlaceHolders());
+        String systemMessage = replaceVariables(super.getSystemMessage(), getPlaceHolders());
+        log.info("海龟汤人设：{}", systemMessage);
+        return systemMessage;
     }
 }
