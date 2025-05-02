@@ -17,6 +17,7 @@ public class YiShaoAgentApplication {
 
 
     public Flux<Message<?>> chat(DialogRequest request) {
+
         return YiShaoAgent.create(request.getPlaceholders()).process(request.getMessages());
     }
 
