@@ -11,12 +11,16 @@ rpc:
   api-config:
     api-key:
       kimi: sk-0TsvAhmvcwF8W0oLc5TTq5kPrHx91zQum9S2nONTiLkSqlg3
+      deepseek: sk-c5f811085f2f418fbd6bac939415a43a
 
     qwen-chat:
       url: "https://api.qwen.com/chat"
       timeout: 5000
     kimi-chat:
       url: "https://api.moonshot.cn/v1/chat/completions"
+      timeout: 8000
+    deepseek:
+      url: "https://api.deepseek.com/chat/completions"
       timeout: 8000
 
 mybatis:

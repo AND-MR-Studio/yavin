@@ -33,11 +33,18 @@ public class ApiProperties {
         private static final String BEARER = "Bearer ";
 
         private String kimi;
+        private String deepseek;
 
         @NotNull
         public String getKimi() {
             // 修改点3：空值处理防止拼接异常
             return BEARER + kimi;
+        }
+
+        @NotNull
+        public String getDeepseek() {
+            // 修改点3：空值处理防止拼接异常
+            return BEARER + deepseek;
         }
     }
 }
